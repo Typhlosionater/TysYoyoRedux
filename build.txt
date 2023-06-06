@@ -1,0 +1,6 @@
+displayName = Ty's Yoyo Redux
+author = Typhlosionater
+version = 1.6
+homepage = https://forums.terraria.org/index.php?threads/tys-yoyo-redux-a-yoyo-expansion-mod.104812/
+hideCode = true
+hideResources = true
