@@ -17,9 +17,6 @@ namespace TysYoyoRedux.Items.NewYoyos
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spectrum");
-			Tooltip.SetDefault("Puts on a deadly lightshow");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			ItemID.Sets.Yoyo[Item.type] = true;

@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Holy Throw");
-
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 20f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 320f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 17f; //Speed: See Below
@@ -38,6 +36,8 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 
 			Projectile.extraUpdates = 0;
 			Projectile.scale = 1f;
+
+			Projectile.ArmorPenetration = 10;
 		}
 
 		public override void AI()
@@ -55,12 +55,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				Main.dust[num21].velocity += Projectile.velocity * 0.5f;
 				Main.dust[num21].velocity *= 0.5f;
 			}
-		}
-
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			//Ignores 10 Armor
-			damage += target.checkArmorPenetration(10);
 		}
 	}
 }

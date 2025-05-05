@@ -17,9 +17,6 @@ namespace TysYoyoRedux.Items.NewYoyos
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Poltergeist");
-			Tooltip.SetDefault("Can pass through walls unhindered");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			ItemID.Sets.Yoyo[Item.type] = true;

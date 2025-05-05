@@ -12,16 +12,11 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 {
 	public class CascadeFieryExplosionProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Fiery Explosion");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 80;
 			Projectile.height = 80;
-			Projectile.friendly = true; 
+			Projectile.friendly = true;
             Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
@@ -69,6 +64,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			}
 		}
 
+		/* TODO: new method of this
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			// Vanilla explosions do less damage to Eater of Worlds in expert mode, so we will too.
@@ -80,8 +76,9 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 				}
 			}
 		}
+		*/
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Has a 1/3 chance to inflict 1-4 seconds of on fire! on impact
 			if(Main.rand.Next(3) == 0)
@@ -90,7 +87,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			}
 		}
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Has a 1/3 chance to inflict 1-4 seconds of on fire! on impact
 			if (Main.rand.Next(3) == 0)

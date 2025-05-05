@@ -12,11 +12,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 {
 	public class ValorGhostlyWispProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ghostly Wisp");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 16;

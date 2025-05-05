@@ -17,9 +17,6 @@ namespace TysYoyoRedux.Items.NewYoyos
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Holy Throw");
-			Tooltip.SetDefault("Ignores 10 points of enemy defence");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			ItemID.Sets.Yoyo[Item.type] = true;

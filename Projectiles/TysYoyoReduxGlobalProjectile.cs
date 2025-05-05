@@ -31,8 +31,7 @@ namespace TysYoyoRedux.Projectiles
 
 		public Vector2 ValkyrieTargetedEnemy = new Vector2(0, 0);
 
-		//On Hit NPC effects
-		public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Vanilla Yoyo Effects + Debuffs that trigger on NPC hits
 			if (projectile.aiStyle == 99 && ModContent.GetInstance<TysYoyoReduxConfigServer>().VanillaYoyoEffects == true)
@@ -42,7 +41,7 @@ namespace TysYoyoRedux.Projectiles
 				{
 					if (Main.rand.Next(2) == 0 && target.lifeMax > 5 && !Main.player[projectile.owner].moonLeech)
 					{
-						int healingAmount = damage / 10;
+						int healingAmount = hit.Damage / 10;
 						if (healingAmount > 0 && !(Main.player[projectile.owner].lifeSteal <= 0f))
 						{
 							Main.player[Main.myPlayer].lifeSteal -= healingAmount;
@@ -211,8 +210,7 @@ namespace TysYoyoRedux.Projectiles
 			}
 		}
 
-		//On Hit Player effects
-		public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
+		public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
 		{
 			//Vanilla Yoyo Effects + Debuffs that trigger on Player hits
 			if (projectile.aiStyle == 99 && ModContent.GetInstance<TysYoyoReduxConfigServer>().VanillaYoyoEffects == true)
@@ -222,7 +220,7 @@ namespace TysYoyoRedux.Projectiles
 				{
 					if (Main.rand.Next(2) == 0 && !Main.player[projectile.owner].moonLeech)
 					{
-						int healingAmount = damage / 10;
+						int healingAmount = info.Damage / 10;
 						if (healingAmount > 0 && !(Main.player[projectile.owner].lifeSteal <= 0f))
 						{
 							Main.player[Main.myPlayer].lifeSteal -= healingAmount;
@@ -598,15 +596,12 @@ namespace TysYoyoRedux.Projectiles
 		}
 
 		//Damage modification effects
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
+		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+		{
 			//Format:C double critical strike damage effect
 			if (projectile.type == ProjectileID.FormatC && ModContent.GetInstance<TysYoyoReduxConfigServer>().VanillaYoyoEffects == true)
-            {
-				if (crit)
-				{
-					damage = (int)(damage * 2f);
-				}
+			{
+				modifiers.CritDamage += 1f;
 			}
 		}
 
@@ -622,6 +617,7 @@ namespace TysYoyoRedux.Projectiles
         }
 
 		//AI overrides
+		/* TODO: ask about use of these, not calling orig in a detour is very bad
         public override void Load()
 		{
 			On.Terraria.Projectile.AI_099_1 += ProjectileAI_099_01;
@@ -1203,5 +1199,6 @@ namespace TysYoyoRedux.Projectiles
 			}
 			self.rotation += 0.45f;
 		}
+		*/
 	}
 }

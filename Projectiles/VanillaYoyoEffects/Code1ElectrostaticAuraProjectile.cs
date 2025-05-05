@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Electrostatic Aura");
-
 			Main.projFrames[Projectile.type] = 4;
 		}
 

@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ravager");
-
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 14f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 256f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 14.5f; //Speed: See Below
@@ -68,7 +66,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Produces 0-2 blood clot projectiles on impact
 			if (OnHitEffectCooldown == 0)
@@ -92,7 +90,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 		}
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Produces 0-2 blood clot projectiles on impact
 			if (OnHitEffectCooldown == 0)

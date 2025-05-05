@@ -12,6 +12,7 @@ namespace TysYoyoRedux.NPCs
 	public class TysYoyoReduxGlobalNPC : GlobalNPC
 	{
 		//New Sold Items
+		/* TODO: Fix
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
 			//All new accessories that are sold
@@ -39,6 +40,7 @@ namespace TysYoyoRedux.NPCs
 				}
 			}
         }
+        */
 
 		//Travelling merchant sold items
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)

@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Razor Leaf");
-
 			Main.projFrames[Projectile.type] = 5;
 		}
 
@@ -75,15 +73,15 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) + 3.14f;
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
 			target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 8));
-		}
+        }
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
 			target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 8));
-		}
+        }
 
 		public override void Kill(int timeLeft)
 		{

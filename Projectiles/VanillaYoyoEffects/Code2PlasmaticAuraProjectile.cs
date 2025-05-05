@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Plasmatic Aura");
-
 			Main.projFrames[Projectile.type] = 4;
 		}
 

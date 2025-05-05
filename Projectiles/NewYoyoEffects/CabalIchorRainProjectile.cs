@@ -12,11 +12,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
 {
 	public class CabalIchorRainProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ichor Rain");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 32;

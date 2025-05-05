@@ -17,9 +17,6 @@ namespace TysYoyoRedux.Items.NewYoyos
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ravager");
-			Tooltip.SetDefault("Fires out seeking blood clots on impact");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			ItemID.Sets.Yoyo[Item.type] = true;

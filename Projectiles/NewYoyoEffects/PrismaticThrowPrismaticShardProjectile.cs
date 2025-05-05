@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Prismatic Shard");
-
 			Main.projFrames[Projectile.type] = 8;
 		}
 

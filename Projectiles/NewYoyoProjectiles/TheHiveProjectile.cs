@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Hive");
-
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 10f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 216f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 13.5f; //Speed: See Below
@@ -52,8 +50,8 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
 			//Bees knees arrow style bee production effect
 			if (OnHitEffectCooldown == 0)
 			{
@@ -70,7 +68,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 						position8 -= oldVelocity2 * num591;
 						num592 += Projectile.oldVelocity.X / 6f;
 						num593 += Projectile.oldVelocity.Y / 6f;
-						int num594 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position8.X, position8.Y, num592, num593, Main.player[Projectile.owner].beeType(), Main.player[Projectile.owner].beeDamage(damage / 3), Main.player[Projectile.owner].beeKB(0f), Main.myPlayer);
+						int num594 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position8.X, position8.Y, num592, num593, Main.player[Projectile.owner].beeType(), Main.player[Projectile.owner].beeDamage(hit.Damage / 3), Main.player[Projectile.owner].beeKB(0f), Main.myPlayer);
 						Main.projectile[num594].DamageType = DamageClass.Melee;
 					}
 				}
@@ -78,10 +76,10 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				OnHitEffectCooldown = 13;
 				Projectile.netUpdate = true;
 			}
-		}
+        }
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
 			//Bees knees arrow style bee production effect
 			if (OnHitEffectCooldown == 0)
 			{
@@ -98,7 +96,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 						position8 -= oldVelocity2 * num591;
 						num592 += Projectile.oldVelocity.X / 6f;
 						num593 += Projectile.oldVelocity.Y / 6f;
-						int num594 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position8.X, position8.Y, num592, num593, Main.player[Projectile.owner].beeType(), Main.player[Projectile.owner].beeDamage(damage / 3), Main.player[Projectile.owner].beeKB(0f), Main.myPlayer);
+						int num594 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position8.X, position8.Y, num592, num593, Main.player[Projectile.owner].beeType(), Main.player[Projectile.owner].beeDamage(info.Damage / 3), Main.player[Projectile.owner].beeKB(0f), Main.myPlayer);
 						Main.projectile[num594].DamageType = DamageClass.Melee;
 					}
 				}
@@ -106,6 +104,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				OnHitEffectCooldown = 13;
 				Projectile.netUpdate = true;
 			}
-		}
+        }
 	}
 }

@@ -1,0 +1,149 @@
+Items: {
+	CombinedYoyoAccessory: {
+		DisplayName: Yoyo Modification Kit
+		Tooltip:
+			'''
+			Consecutive yoyo hits builds up combo
+			Combo increases damage dealt by yoyos by up to 20%
+			Increases yoyo lifetime by 50%
+			'''
+	}
+
+	MasterYoyoKit: {
+		DisplayName: Master Yoyo Kit
+		Tooltip:
+			'''
+			Increases your yoyo skills beyond comprehension
+			'The last of your kind, a true yoyo master...'
+			'''
+	}
+
+	YoyoBearingAccessory: {
+		DisplayName: Ball Bearings
+		Tooltip: Increases yoyo lifetime by 50%
+	}
+
+	YoyoSideEffectsAccessory: {
+		DisplayName: Spiked Side Effects
+		Tooltip: Consecutive yoyo hits builds up combo\nCombo increases damage dealt by yoyos by up to 20%
+	}
+
+	Asteroid: {
+		DisplayName: Asteroid
+		Tooltip: Launches short-lived bouncing fireballs
+	}
+
+	Avian: {
+		DisplayName: Avian
+		Tooltip: Exceptionally agile
+	}
+
+	Cabal: {
+		DisplayName: Cabal
+		Tooltip: Striking enemies calls down a rain of ichor\n.
+	}
+
+	EnchantedYoyo: {
+		DisplayName: Enchanted Yoyo
+		Tooltip: ""
+	}
+
+	ExtraterrestrialTaser: {
+		DisplayName: Extraterrestrial Taser
+		Tooltip: Electrocutes enemies on impact
+	}
+
+	HolyThrow: {
+		DisplayName: Holy Throw
+		Tooltip: Ignores 10 points of enemy defense
+	}
+
+	Nitro: {
+		DisplayName: Nitro
+		Tooltip: Leaves a blazing trail
+	}
+
+	Poltergeist: {
+		DisplayName: Poltergeist
+		Tooltip: Can pass through walls unhindered
+	}
+
+	PrismaticThrow: {
+		DisplayName: Prismatic Throw
+		Tooltip: Produces prismatic shards on impact
+	}
+
+	Ravager: {
+		DisplayName: Ravager
+		Tooltip: Fires out seeking blood clots on impact
+	}
+
+	Spectrum: {
+		DisplayName: Spectrum
+		Tooltip: Puts on a deadly lightshow
+	}
+}
+
+Projectiles: {
+	CabalIchorRainProjectile.DisplayName: Ichor Rain
+	NitroCursedEmberProjectile.DisplayName: Cursed Ember
+	PrismaticThrowPrismaticShardProjectile.DisplayName: Prismatic Shard
+	RavagerBloodClotProjectile.DisplayName: Blood Clot
+	SpectrumSundanceProjectile.DisplayName: Spectrum Sundance
+	AsteroidProjectile.DisplayName: Asteroid
+	AvianProjectile.DisplayName: Avian
+	CabalProjectile.DisplayName: Cabal
+	EnchantedYoyoProjectile.DisplayName: Enchanted Yoyo
+	ExtraterrestrialTaserProjectile.DisplayName: Extraterrestrial Taser
+	HolyThrowProjectile.DisplayName: Holy Throw
+	NitroProjectile.DisplayName: Nitro
+	PoltergeistProjectile.DisplayName: Poltergeist
+	PrismaticThrowProjectile.DisplayName: Prismatic Throw
+	RavagerProjectile.DisplayName: Ravager
+	SpectrumProjectile.DisplayName: Spectrum
+	TheHiveProjectile.DisplayName: The Hive
+	AmarokSnowflakeProjectile.DisplayName: Snowflake
+	CascadeFieryExplosionProjectile.DisplayName: Fiery Explosion
+	Code1ElectrostaticAuraProjectile.DisplayName: Electrostatic Aura
+	Code2PlasmaticAuraProjectile.DisplayName: Plasmatic Aura
+	EoCMiniServantProjectile.DisplayName: Mini Servant
+	GradientChromaticPulseProjectile.DisplayName: Chromatic Pulse
+	HelFireFlameTorrentProjectile.DisplayName: Flame Torrent
+	KrakenAbyssalTentacleProjectile.DisplayName: Abyssal Tentacle
+	MalaiseBileDropletProjectile.DisplayName: Bile Droplet
+	RallyAfterimageProjectile.DisplayName: Rally Afterimage
+	ValkyrieYoyoFeatherProjectile.DisplayName: Valkyrie Feather
+	ValorGhostlyWispProjectile.DisplayName: Ghostly Wisp
+	YeletsRazorLeafProjectile.DisplayName: Razor Leaf
+}
+
+Configs: {
+	TysYoyoReduxConfigServer: {
+		BuffsToCounterweights: {
+			Tooltip: Speeds up counterweights along with giving them local immunity. In addtion counterweights will switch out after 4-6 seconds. (Enabled by default)
+			Label: Changes to counterweights
+		}
+
+		AddNewAccessories: {
+			Tooltip: Adds new modded yoyo subclass accessories. (Enabled by default)
+			Label: Add new modded yoyo accessories
+		}
+
+		AddNewYoyos: {
+			Tooltip: Adds new modded yoyos to various points in progression. (Enabled by default)
+			Label: Add new modded yoyos
+		}
+
+		VanillaYoyoRecipes: {
+			Tooltip: Gives recipes to Red's Throw and Valkyrie Yoyo. (Enabled by default)
+			Label: Give recipes to developer yoyos
+		}
+
+		VanillaYoyoEffects: {
+			Tooltip: Gives a special effect to each vanilla yoyo. (Enabled by default)
+			Label: Give effects to vanilla yoyos
+		}
+
+		DisplayName: Mod Config
+	}
+}

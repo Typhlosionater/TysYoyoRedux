@@ -17,9 +17,6 @@ namespace TysYoyoRedux.Items.NewYoyos
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Avian");
-			Tooltip.SetDefault("Exceptionally agile");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			ItemID.Sets.Yoyo[Item.type] = true;

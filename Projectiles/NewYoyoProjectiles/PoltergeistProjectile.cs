@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Poltergeist");
-
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = -1f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 352f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 16.5f; //Speed: See Below

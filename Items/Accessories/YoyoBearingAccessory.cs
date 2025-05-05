@@ -14,9 +14,6 @@ namespace TysYoyoRedux.Items.Accessories
 
         public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Ball Bearings");
-			Tooltip.SetDefault("Increases yoyo lifetime by 50%");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 		

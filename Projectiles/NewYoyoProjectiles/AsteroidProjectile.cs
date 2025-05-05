@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Asteroid");
-
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 8f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 216f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 13.5f; //Speed: See Below
@@ -56,22 +54,22 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
 			//Apply on fire on impact
 			if (Main.rand.Next(2) == 0)
             {
 				target.AddBuff(BuffID.OnFire, 60 * 3);
 			}
-		}
+        }
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
 			//Apply on fire on impact
 			if (Main.rand.Next(2) == 0)
 			{
 				target.AddBuff(BuffID.OnFire, 60 * 3);
 			}
-		}
+        }
 	}
 }

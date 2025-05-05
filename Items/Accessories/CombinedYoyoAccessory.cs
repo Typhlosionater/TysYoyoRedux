@@ -14,9 +14,6 @@ namespace TysYoyoRedux.Items.Accessories
 
         public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Yoyo Modification Kit");
-            Tooltip.SetDefault("Consecutive yoyo hits builds up combo\nCombo increases damage dealt by yoyos by up to 20%\nIncreases yoyo lifetime by 50%");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 		

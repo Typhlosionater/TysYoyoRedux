@@ -12,11 +12,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 {
 	public class KrakenAbyssalTentacleProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Abyssal Tentacle");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 40;
