@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using System.Linq;
+using MonoMod.Cil;
 
 namespace TysYoyoRedux.Projectiles
 {
@@ -595,6 +596,27 @@ namespace TysYoyoRedux.Projectiles
 			}
 		}
 
+		private float oldYoyoLifeTimeMult = 1f;
+
+		//Yoyo bearings effect
+		public override bool PreAI(Projectile projectile)
+		{
+			oldYoyoLifeTimeMult = ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type];
+
+			Player owner = Main.player[projectile.owner];
+			if (owner.GetModPlayer<TysYoyoReduxPlayer>().YoyoBearings)
+			{
+				ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = oldYoyoLifeTimeMult * 1.5f;
+			}
+
+			return base.PreAI(projectile);
+		}
+
+		public override void PostAI(Projectile projectile)
+		{
+			ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = oldYoyoLifeTimeMult;
+		}
+
 		//Damage modification effects
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
 		{
@@ -617,588 +639,33 @@ namespace TysYoyoRedux.Projectiles
         }
 
 		//AI overrides
-		/* TODO: ask about use of these, not calling orig in a detour is very bad
+		/*
+		 * TODO: move to IL edits
+		 * for AI_0, Projectile.cs,L48594,
+		 *	if (Main.player[owner].channel) should become
+		 *  if (Main.player[owner].channel && frameCounter < (int)(60 * 2 * Main.rand.NextFloat(4f, 6f)))
+		 */
         public override void Load()
-		{
-			On.Terraria.Projectile.AI_099_1 += ProjectileAI_099_01;
-			On.Terraria.Projectile.AI_099_2 += ProjectileAI_099_02;
-		}
+        {
+	        IL_Projectile.AI_099_1 += il =>
+	        {
+		        var cursor = new ILCursor(il);
 
-		//Overrides vanilla Counterweight AI
-		private void ProjectileAI_099_01(On.Terraria.Projectile.orig_AI_099_1 orig, Terraria.Projectile self)
-		{
-			//Setup for Counterweight Timelimit
-			if (ModContent.GetInstance<TysYoyoReduxConfigServer>().BuffsToCounterweights == true)
-            {
-				self.frameCounter++;
-			}
+		        cursor.GotoNext(MoveType.After,
+			        i => i.MatchLdsfld<Main>(nameof(Main.player)),
+			        i => i.MatchLdarg0(),
+			        i => i.MatchLdfld<Projectile>(nameof(Projectile.owner)),
+			        i => i.MatchLdelemRef(),
+			        i => i.MatchLdfld<Player>(nameof(Player.channel)));
 
-			self.timeLeft = 6;
-			bool flag = true;
-			float num = 250f;
-			float num2 = 0.1f;
-			float num3 = 15f;
-			float num4 = 12f;
-			num *= 0.5f;
-			num3 *= 0.8f;
-			num4 *= 1.5f;
-			if (self.owner == Main.myPlayer)
-			{
-				bool flag2 = false;
-				for (int i = 0; i < 1000; i++)
-				{
-					if (Main.projectile[i].active && Main.projectile[i].owner == self.owner && Main.projectile[i].aiStyle == 99 && (Main.projectile[i].type < 556 || Main.projectile[i].type > 561))
-					{
-						flag2 = true;
-					}
-				}
-				if (!flag2)
-				{
-					self.ai[0] = -1f;
-					self.netUpdate = true;
-				}
-			}
-			if (Main.player[self.owner].yoyoString)
-			{
-				num += num * 0.25f + 10f;
-			}
-			self.rotation += 0.5f;
-			if (Main.player[self.owner].dead)
-			{
-				self.Kill();
-				return;
-			}
-			if (!flag)
-			{
-				Main.player[self.owner].heldProj = self.whoAmI;
-				Main.player[self.owner].SetDummyItemTime(2);
-				if (self.position.X + (float)(self.width / 2) > Main.player[self.owner].position.X + (float)(Main.player[self.owner].width / 2))
-				{
-					Main.player[self.owner].ChangeDir(1);
-					self.direction = 1;
-				}
-				else
-				{
-					Main.player[self.owner].ChangeDir(-1);
-					self.direction = -1;
-				}
-			}
-			if (self.ai[0] == 0f || self.ai[0] == 1f)
-			{
-				if (self.ai[0] == 1f)
-				{
-					num *= 0.75f;
-				}
-				num4 *= 0.5f;
-				bool flag3 = false;
-				Vector2 vector = Main.player[self.owner].Center - self.Center;
-				if ((double)vector.Length() > (double)num * 0.9)
-				{
-					flag3 = true;
-				}
-				if (vector.Length() > num)
-				{
-					float num5 = vector.Length() - num;
-					Vector2 vector2 = default(Vector2);
-					vector2.X = vector.Y;
-					vector2.Y = vector.X;
-					vector.Normalize();
-					vector *= num;
-					self.position = Main.player[self.owner].Center - vector;
-					self.position.X -= self.width / 2;
-					self.position.Y -= self.height / 2;
-					float num6 = self.velocity.Length();
-					self.velocity.Normalize();
-					if (num5 > num6 - 1f)
-					{
-						num5 = num6 - 1f;
-					}
-					self.velocity *= num6 - num5;
-					num6 = self.velocity.Length();
-					Vector2 vector3 = new Vector2(self.Center.X, self.Center.Y);
-					Vector2 vector4 = new Vector2(Main.player[self.owner].Center.X, Main.player[self.owner].Center.Y);
-					if (vector3.Y < vector4.Y)
-					{
-						vector2.Y = Math.Abs(vector2.Y);
-					}
-					else if (vector3.Y > vector4.Y)
-					{
-						vector2.Y = 0f - Math.Abs(vector2.Y);
-					}
-					if (vector3.X < vector4.X)
-					{
-						vector2.X = Math.Abs(vector2.X);
-					}
-					else if (vector3.X > vector4.X)
-					{
-						vector2.X = 0f - Math.Abs(vector2.X);
-					}
-					vector2.Normalize();
-					vector2 *= self.velocity.Length();
-					new Vector2(vector2.X, vector2.Y);
-					if (Math.Abs(self.velocity.X) > Math.Abs(self.velocity.Y))
-					{
-						Vector2 vector5 = self.velocity;
-						vector5.Y += vector2.Y;
-						vector5.Normalize();
-						vector5 *= self.velocity.Length();
-						if ((double)Math.Abs(vector2.X) < 0.1 || (double)Math.Abs(vector2.Y) < 0.1)
-						{
-							self.velocity = vector5;
-						}
-						else
-						{
-							self.velocity = (vector5 + self.velocity * 2f) / 3f;
-						}
-					}
-					else
-					{
-						Vector2 vector6 = self.velocity;
-						vector6.X += vector2.X;
-						vector6.Normalize();
-						vector6 *= self.velocity.Length();
-						if ((double)Math.Abs(vector2.X) < 0.2 || (double)Math.Abs(vector2.Y) < 0.2)
-						{
-							self.velocity = vector6;
-						}
-						else
-						{
-							self.velocity = (vector6 + self.velocity * 2f) / 3f;
-						}
-					}
-				}
-				if (Main.myPlayer == self.owner)
-				{
-					//Slightly Edited if statement should mean that the counterweight will always return after 4-6 seconds
-					if (Main.player[self.owner].channel && self.frameCounter < (int)(60 * 2 * Main.rand.NextFloat(4f, 6f)))
-					{
-						Vector2 vector7 = new Vector2(Main.mouseX - Main.lastMouseX, Main.mouseY - Main.lastMouseY);
-						if (self.velocity.X != 0f || self.velocity.Y != 0f)
-						{
-							if (flag)
-							{
-								vector7 *= -1f;
-							}
-							if (flag3)
-							{
-								if (self.Center.X < Main.player[self.owner].Center.X && vector7.X < 0f)
-								{
-									vector7.X = 0f;
-								}
-								if (self.Center.X > Main.player[self.owner].Center.X && vector7.X > 0f)
-								{
-									vector7.X = 0f;
-								}
-								if (self.Center.Y < Main.player[self.owner].Center.Y && vector7.Y < 0f)
-								{
-									vector7.Y = 0f;
-								}
-								if (self.Center.Y > Main.player[self.owner].Center.Y && vector7.Y > 0f)
-								{
-									vector7.Y = 0f;
-								}
-							}
-							self.velocity += vector7 * num2;
-							self.netUpdate = true;
-						}
-					}
-					else
-					{
-						self.ai[0] = 10f;
-						self.netUpdate = true;
-					}
-				}
-				if (flag || self.type == 562 || self.type == 547 || self.type == 555 || self.type == 564 || self.type == 552 || self.type == 563 || self.type == 549 || self.type == 550 || self.type == 554 || self.type == 553 || self.type == 603)
-				{
-					float num7 = 800f;
-					Vector2 vector8 = default(Vector2);
-					bool flag4 = false;
-					if (self.type == 549)
-					{
-						num7 = 200f;
-					}
-					if (self.type == 554)
-					{
-						num7 = 400f;
-					}
-					if (self.type == 553)
-					{
-						num7 = 250f;
-					}
-					if (self.type == 603)
-					{
-						num7 = 320f;
-					}
-					for (int j = 0; j < 200; j++)
-					{
-						if (Main.npc[j].CanBeChasedBy(this))
-						{
-							float num8 = Main.npc[j].position.X + (float)(Main.npc[j].width / 2);
-							float num9 = Main.npc[j].position.Y + (float)(Main.npc[j].height / 2);
-							float num10 = Math.Abs(self.position.X + (float)(self.width / 2) - num8) + Math.Abs(self.position.Y + (float)(self.height / 2) - num9);
-							if (num10 < num7 && (self.type != 563 || !(num10 < 200f)) && Collision.CanHit(self.position, self.width, self.height, Main.npc[j].position, Main.npc[j].width, Main.npc[j].height) && (double)(Main.npc[j].Center - Main.player[self.owner].Center).Length() < (double)num * 0.9)
-							{
-								num7 = num10;
-								vector8.X = num8;
-								vector8.Y = num9;
-								flag4 = true;
-							}
-						}
-					}
-					if (flag4)
-					{
-						vector8 -= self.Center;
-						vector8.Normalize();
-						if (self.type == 563)
-						{
-							vector8 *= 4f;
-							self.velocity = (self.velocity * 14f + vector8) / 15f;
-						}
-						else if (self.type == 553)
-						{
-							vector8 *= 5f;
-							self.velocity = (self.velocity * 12f + vector8) / 13f;
-						}
-						else if (self.type == 603)
-						{
-							vector8 *= 16f;
-							self.velocity = (self.velocity * 9f + vector8) / 10f;
-						}
-						else if (self.type == 554)
-						{
-							vector8 *= 8f;
-							self.velocity = (self.velocity * 6f + vector8) / 7f;
-						}
-						else
-						{
-							vector8 *= 6f;
-							self.velocity = (self.velocity * 7f + vector8) / 8f;
-						}
-					}
-				}
-				if (self.velocity.Length() > num3)
-				{
-					self.velocity.Normalize();
-					self.velocity *= num3;
-				}
-				if (self.velocity.Length() < num4)
-				{
-					self.velocity.Normalize();
-					self.velocity *= num4;
-				}
-				return;
-			}
-			self.tileCollide = false;
-			Vector2 vector9 = Main.player[self.owner].Center - self.Center;
-			float num11 = vector9.Length();
-			if (num11 < 40f || vector9.HasNaNs() || num11 > 2000f)
-			{
-				self.Kill();
-				return;
-			}
-			float num12 = num3 * 1.5f;
-			if (self.type == 546)
-			{
-				num12 *= 1.5f;
-			}
-			if (self.type == 554)
-			{
-				num12 *= 1.25f;
-			}
-			if (self.type == 555)
-			{
-				num12 *= 1.35f;
-			}
-			if (self.type == 562)
-			{
-				num12 *= 1.25f;
-			}
-			float num13 = 12f;
-			vector9.Normalize();
-			vector9 *= num12;
-			self.velocity = (self.velocity * (num13 - 1f) + vector9) / num13;
-		}
+		        cursor.EmitLdarg0();
+		        cursor.EmitDelegate((Projectile proj) =>
+		        {
+			        return proj.frameCounter < (int)(60 * 2 * Main.rand.NextFloat(4f, 6f));
+		        });
 
-		//Overrides vanilla yoyo AI
-		private void ProjectileAI_099_02(On.Terraria.Projectile.orig_AI_099_2 orig, Terraria.Projectile self)
-		{
-			//Overwrites vanilla yoyo AI so I can add accessory effects
-			bool flag = false;
-			for (int i = 0; i < self.whoAmI; i++)
-			{
-				if (Main.projectile[i].active && Main.projectile[i].owner == self.owner && Main.projectile[i].type == self.type)
-				{
-					flag = true;
-				}
-			}
-			if (self.owner == Main.myPlayer)
-			{
-				self.localAI[0] += 1f;
-				if (flag)
-				{
-					self.localAI[0] += (float)Main.rand.Next(10, 31) * 0.1f;
-				}
-				float num = self.localAI[0] / 60f;
-				num /= (1f + Main.player[self.owner].GetAttackSpeed(DamageClass.Melee)) / 2f;
-				float num2 = ProjectileID.Sets.YoyosLifeTimeMultiplier[self.type];
-				//If the player has the yoyo bearings accessory equiped, their yoyo lifetime is increased by 50%. [MOD EFFECT]
-				if (Main.player[self.owner].GetModPlayer<TysYoyoReduxPlayer>().YoyoBearings && num2 != -1)
-				{
-					num2 *= 1.5f;
-				}
-				if (num2 != -1f && num > num2)
-				{
-					self.ai[0] = -1f;
-				}
-			}
-			if (self.type == 603 && self.owner == Main.myPlayer)
-			{
-				self.localAI[1] += 1f;
-				if (self.localAI[1] >= 6f)
-				{
-					float num3 = 400f;
-					Vector2 vector = self.velocity;
-					Vector2 vector2 = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
-					vector2.Normalize();
-					vector2 *= (float)Main.rand.Next(10, 41) * 0.1f;
-					if (Main.rand.Next(3) == 0)
-					{
-						vector2 *= 2f;
-					}
-					vector *= 0.25f;
-					vector += vector2;
-					for (int j = 0; j < 200; j++)
-					{
-						if (Main.npc[j].CanBeChasedBy(this))
-						{
-							float num4 = Main.npc[j].position.X + (float)(Main.npc[j].width / 2);
-							float num5 = Main.npc[j].position.Y + (float)(Main.npc[j].height / 2);
-							float num6 = Math.Abs(self.position.X + (float)(self.width / 2) - num4) + Math.Abs(self.position.Y + (float)(self.height / 2) - num5);
-							if (num6 < num3 && Collision.CanHit(self.position, self.width, self.height, Main.npc[j].position, Main.npc[j].width, Main.npc[j].height))
-							{
-								num3 = num6;
-								vector.X = num4;
-								vector.Y = num5;
-								vector -= self.Center;
-								vector.Normalize();
-								vector *= 8f;
-							}
-						}
-					}
-					vector *= 0.8f;
-					Projectile.NewProjectile(self.GetSource_FromThis(), self.Center.X - vector.X, self.Center.Y - vector.Y, vector.X, vector.Y, 604, self.damage, self.knockBack, self.owner);
-					self.localAI[1] = 0f;
-				}
-			}
-			bool flag2 = false;
-			if (self.type >= 556 && self.type <= 561)
-			{
-				flag2 = true;
-			}
-			if (Main.player[self.owner].dead)
-			{
-				self.Kill();
-				return;
-			}
-			if (!flag2 && !flag)
-			{
-				Main.player[self.owner].heldProj = self.whoAmI;
-				Main.player[self.owner].SetDummyItemTime(2);
-				if (self.position.X + (float)(self.width / 2) > Main.player[self.owner].position.X + (float)(Main.player[self.owner].width / 2))
-				{
-					Main.player[self.owner].ChangeDir(1);
-					self.direction = 1;
-				}
-				else
-				{
-					Main.player[self.owner].ChangeDir(-1);
-					self.direction = -1;
-				}
-			}
-			if (self.velocity.HasNaNs())
-			{
-				self.Kill();
-			}
-			self.timeLeft = 6;
-			float num7 = 10f;
-			float num8 = 10f;
-			float num9 = 3f;
-			float num10 = 200f;
-			num10 = ProjectileID.Sets.YoyosMaximumRange[self.type];
-			num8 = ProjectileID.Sets.YoyosTopSpeed[self.type];
-			if (self.type == 545)
-			{
-				if (Main.rand.Next(6) == 0)
-				{
-					int num11 = Dust.NewDust(self.position, self.width, self.height, 6);
-					Main.dust[num11].noGravity = true;
-				}
-			}
-			else if (self.type == 553 && Main.rand.Next(2) == 0)
-			{
-				int num12 = Dust.NewDust(self.position, self.width, self.height, 6);
-				Main.dust[num12].noGravity = true;
-				Main.dust[num12].scale = 1.6f;
-			}
-			if (Main.player[self.owner].yoyoString)
-			{
-				num10 = num10 * 1.25f + 30f;
-			}
-			num10 /= (1f + Main.player[self.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
-			num8 /= (1f + Main.player[self.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
-			num7 = 14f - num8 / 2f;
-			if (num7 < 1f)
-			{
-				num7 = 1f;
-			}
-			num9 = 5f + num8 / 2f;
-			if (flag)
-			{
-				num9 += 20f;
-			}
-			if (self.ai[0] >= 0f)
-			{
-				if (self.velocity.Length() > num8)
-				{
-					self.velocity *= 0.98f;
-				}
-				bool flag3 = false;
-				bool flag4 = false;
-				Vector2 vector3 = Main.player[self.owner].Center - self.Center;
-				if (vector3.Length() > num10)
-				{
-					flag3 = true;
-					if ((double)vector3.Length() > (double)num10 * 1.3)
-					{
-						flag4 = true;
-					}
-				}
-				if (self.owner == Main.myPlayer)
-				{
-					if (!Main.player[self.owner].channel || Main.player[self.owner].stoned || Main.player[self.owner].frozen)
-					{
-						self.ai[0] = -1f;
-						self.ai[1] = 0f;
-						self.netUpdate = true;
-					}
-					else
-					{
-						Vector2 vector4 = Main.ReverseGravitySupport(Main.MouseScreen) + Main.screenPosition;
-						float x = vector4.X;
-						float y = vector4.Y;
-						Vector2 vector5 = new Vector2(x, y) - Main.player[self.owner].Center;
-						if (vector5.Length() > num10)
-						{
-							vector5.Normalize();
-							vector5 *= num10;
-							vector5 = Main.player[self.owner].Center + vector5;
-							x = vector5.X;
-							y = vector5.Y;
-						}
-						if (self.ai[0] != x || self.ai[1] != y)
-						{
-							Vector2 vector6 = new Vector2(x, y) - Main.player[self.owner].Center;
-							if (vector6.Length() > num10 - 1f)
-							{
-								vector6.Normalize();
-								vector6 *= num10 - 1f;
-								Vector2 vector7 = Main.player[self.owner].Center + vector6;
-								x = vector7.X;
-								y = vector7.Y;
-							}
-							self.ai[0] = x;
-							self.ai[1] = y;
-							self.netUpdate = true;
-						}
-					}
-				}
-				if (flag4 && self.owner == Main.myPlayer)
-				{
-					self.ai[0] = -1f;
-					self.netUpdate = true;
-				}
-				if (self.ai[0] >= 0f)
-				{
-					if (flag3)
-					{
-						num7 /= 2f;
-						num8 *= 2f;
-						if (self.Center.X > Main.player[self.owner].Center.X && self.velocity.X > 0f)
-						{
-							self.velocity.X *= 0.5f;
-						}
-						if (self.Center.Y > Main.player[self.owner].Center.Y && self.velocity.Y > 0f)
-						{
-							self.velocity.Y *= 0.5f;
-						}
-						if (self.Center.X < Main.player[self.owner].Center.X && self.velocity.X < 0f)
-						{
-							self.velocity.X *= 0.5f;
-						}
-						if (self.Center.Y < Main.player[self.owner].Center.Y && self.velocity.Y < 0f)
-						{
-							self.velocity.Y *= 0.5f;
-						}
-					}
-					Vector2 vector8 = new Vector2(self.ai[0], self.ai[1]) - self.Center;
-					if (flag3)
-					{
-						num7 = 1f;
-					}
-					self.velocity.Length();
-					float num13 = vector8.Length();
-					if (num13 > num9)
-					{
-						vector8.Normalize();
-						float num14 = Math.Min(num13 / 2f, num8);
-						if (flag3)
-						{
-							num14 = Math.Min(num14, num8 / 2f);
-						}
-						vector8 *= num14;
-						self.velocity = (self.velocity * (num7 - 1f) + vector8) / num7;
-					}
-					else if (flag)
-					{
-						if ((double)self.velocity.Length() < (double)num8 * 0.6)
-						{
-							vector8 = self.velocity;
-							vector8.Normalize();
-							vector8 *= num8 * 0.6f;
-							self.velocity = (self.velocity * (num7 - 1f) + vector8) / num7;
-						}
-					}
-					else
-					{
-						self.velocity *= 0.8f;
-					}
-					if (flag && !flag3 && (double)self.velocity.Length() < (double)num8 * 0.6)
-					{
-						self.velocity.Normalize();
-						self.velocity *= num8 * 0.6f;
-					}
-				}
-			}
-			else
-			{
-				num7 = (int)((double)num7 * 0.8);
-				num8 *= 1.5f;
-				self.tileCollide = false;
-				Vector2 vector9 = Main.player[self.owner].Center - self.Center;
-				float num15 = vector9.Length();
-				if (num15 < num8 + 10f || num15 == 0f || num15 > 2000f)
-				{
-					self.Kill();
-				}
-				else
-				{
-					vector9.Normalize();
-					vector9 *= num8;
-					self.velocity = (self.velocity * (num7 - 1f) + vector9) / num7;
-				}
-			}
-			self.rotation += 0.45f;
-		}
-		*/
+		        cursor.EmitAnd();
+	        };
+        }
 	}
 }

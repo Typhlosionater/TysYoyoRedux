@@ -6,64 +6,47 @@ using TysYoyoRedux.Items;
 using TysYoyoRedux.NPCs;
 using System.Linq;
 using System.Collections.Generic;
+using TysYoyoRedux.Items.Accessories;
 
 namespace TysYoyoRedux.NPCs
 {
 	public class TysYoyoReduxGlobalNPC : GlobalNPC
 	{
 		//New Sold Items
-		/* TODO: Fix
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
-        {
-			//All new accessories that are sold
+		public override void ModifyShop(NPCShop shop)
+		{
 			if (ModContent.GetInstance<TysYoyoReduxConfigServer>().AddNewAccessories)
 			{
-				//The mechanic sells ball bearings
-				if (type == NPCID.Mechanic)
+				if (shop.NpcType == NPCID.Mechanic)
 				{
-					//Create List
-					List<Item> inventory = shop.item.ToList();
-
-					//Find Slot to insert into
-					Item NewItemSlot = inventory.FirstOrDefault(i => i.type == ItemID.MechanicalLens); //Change target
-					int index = 21; //Change Default
-					if (NewItemSlot != null)
-						index = inventory.IndexOf(NewItemSlot) + 1;
-
-					//Insert item into slot
-					inventory.Insert(index, new(ModContent.ItemType<Items.Accessories.YoyoBearingAccessory>())); //Changes Item
-					inventory[index].isAShopItem = true;
-					nextSlot++;
-
-					//Bruh Moment
-					shop.item = inventory.ToArray();
+					shop.InsertAfter(ItemID.MechanicalLens, ModContent.ItemType<YoyoBearingAccessory>());
 				}
 			}
-        }
-        */
+		}
 
+		// TODO: is there a better way of doing this yet?
 		//Travelling merchant sold items
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
 			//Very Rare Items List
 			int[] veryRareItemIds = new int[]
 			{
-			ItemID.BedazzledNectar,
-			ItemID.ExoticEasternChewToy,
-			ItemID.BirdieRattle,
-			ItemID.AntiPortalBlock,
-			ItemID.CompanionCube,
-			ItemID.SittingDucksFishingRod,
-			ItemID.HunterCloak,
-			ItemID.WinterCape,
-			ItemID.RedCape,
-			ItemID.MysteriousCape,
-			ItemID.CrimsonCloak,
-			ItemID.DiamondRing,
-			ItemID.CelestialMagnet,
-			ItemID.WaterGun,
-			ItemID.PulseBow,
-			ItemID.YellowCounterweight
+				ItemID.BedazzledNectar,
+				ItemID.ExoticEasternChewToy,
+				ItemID.BirdieRattle,
+				ItemID.AntiPortalBlock,
+				ItemID.CompanionCube,
+				ItemID.SittingDucksFishingRod,
+				ItemID.HunterCloak,
+				ItemID.WinterCape,
+				ItemID.RedCape,
+				ItemID.MysteriousCape,
+				ItemID.CrimsonCloak,
+				ItemID.DiamondRing,
+				ItemID.CelestialMagnet,
+				ItemID.WaterGun,
+				ItemID.PulseBow,
+				ItemID.YellowCounterweight
 			};
 
 			//Travelling merchant sells spiked side effects post 3 mech boss

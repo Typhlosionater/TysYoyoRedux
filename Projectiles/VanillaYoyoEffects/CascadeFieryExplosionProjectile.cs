@@ -64,19 +64,13 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			}
 		}
 
-		/* TODO: new method of this
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			// Vanilla explosions do less damage to Eater of Worlds in expert mode, so we will too.
-			if (Main.expertMode)
+			if (Main.expertMode && target.type >= NPCID.EaterofWorldsHead && target.type <= NPCID.EaterofWorldsTail)
 			{
-				if (target.type >= NPCID.EaterofWorldsHead && target.type <= NPCID.EaterofWorldsTail)
-				{
-					damage /= 5;
-				}
+				modifiers.FinalDamage /= 5f;
 			}
 		}
-		*/
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
