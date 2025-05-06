@@ -24,14 +24,11 @@ namespace TysYoyoRedux.NPCs
 			}
 		}
 
-		// TODO: is there a better way of doing this yet?
-		//Travelling merchant sold items
-		public override void SetupTravelShop(int[] shop, ref int nextSlot)
-		{
-			//Very Rare Items List
-			int[] veryRareItemIds = new int[]
-			{
+		private readonly int[] veryRareItemIds =
+		[
+			ItemID.BambooLeaf,
 				ItemID.BedazzledNectar,
+				ItemID.BlueEgg,
 				ItemID.ExoticEasternChewToy,
 				ItemID.BirdieRattle,
 				ItemID.AntiPortalBlock,
@@ -43,18 +40,22 @@ namespace TysYoyoRedux.NPCs
 				ItemID.MysteriousCape,
 				ItemID.CrimsonCloak,
 				ItemID.DiamondRing,
-				ItemID.CelestialMagnet,
 				ItemID.WaterGun,
 				ItemID.PulseBow,
 				ItemID.YellowCounterweight
-			};
+		];
+
+		//Travelling merchant sold items
+		public override void SetupTravelShop(int[] shop, ref int nextSlot)
+		{
+			//Very Rare Items List
 
 			//Travelling merchant sells spiked side effects post 3 mech boss
 			if (ModContent.GetInstance<TysYoyoReduxConfigServer>().AddNewAccessories && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 			{
 				for (int i = 0; i < shop.Length; i++)
 				{
-					if (veryRareItemIds.Contains(shop[i]) && Main.rand.NextBool(17))
+					if (veryRareItemIds.Contains(shop[i]) && Main.rand.NextBool(veryRareItemIds.Length + 1))
 					{
 						shop[i] = ModContent.ItemType<Items.Accessories.YoyoSideEffectsAccessory>();
 						return;
