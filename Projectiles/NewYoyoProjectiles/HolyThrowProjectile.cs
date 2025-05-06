@@ -4,6 +4,8 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +16,9 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
+			ProjectileID.Sets.TrailCacheLength[Type] = 15;
+			ProjectileID.Sets.TrailingMode[Type] = 5;
+
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 20f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 320f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 17f; //Speed: See Below
@@ -55,6 +60,32 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				Main.dust[num21].velocity += Projectile.velocity * 0.5f;
 				Main.dust[num21].velocity *= 0.5f;
 			}
+		}
+
+		private static VertexStrip vertexStrip = new();
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			Color StripColors(float progressOnStrip)
+			{
+				float num = 1f - progressOnStrip;
+				Color result = new Color(48, 63, 150) * (num * num * num * num) * 0.5f;
+				result.A = 0;
+				return result;
+			}
+
+			float StripWidth(float progressOnStrip) => 6f;
+
+			MiscShaderData miscShaderData = GameShaders.Misc["LightDisc"];
+			miscShaderData.UseSaturation(-2.8f);
+			miscShaderData.UseOpacity(2f);
+			miscShaderData.Apply();
+			vertexStrip.PrepareStripWithProceduralPadding(Projectile.oldPos, Projectile.oldRot, StripColors, StripWidth, -Main.screenPosition + Projectile.Size / 2f);
+			vertexStrip.DrawTrail();
+
+			Main.pixelShader.CurrentTechnique.Passes[0].Apply();
+
+			return true;
 		}
 	}
 }
