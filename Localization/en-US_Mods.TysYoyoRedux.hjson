@@ -101,7 +101,6 @@ Projectiles: {
 	PrismaticThrowProjectile.DisplayName: Prismatic Throw
 	RavagerProjectile.DisplayName: Ravager
 	SpectrumProjectile.DisplayName: Spectrum
-	TheHiveProjectile.DisplayName: The Hive
 	AmarokSnowflakeProjectile.DisplayName: Snowflake
 	CascadeFieryExplosionProjectile.DisplayName: Fiery Explosion
 	Code1ElectrostaticAuraProjectile.DisplayName: Electrostatic Aura
