@@ -127,6 +127,7 @@ Projectiles: {
 	ValorGhostlyWispProjectile.DisplayName: Ghostly Wisp
 	YeletsRazorLeafProjectile.DisplayName: Razor Leaf
 	AsteroidFireball.DisplayName: Asteroid Fireball
+	ExtraterrestrialTaserElectrosphere.DisplayName: Extraterrestrial Taser Electrosphere
 }
 
 Configs: {
