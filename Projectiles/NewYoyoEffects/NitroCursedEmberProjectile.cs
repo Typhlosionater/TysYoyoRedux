@@ -12,11 +12,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
 {
 	public class NitroCursedEmberProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Cursed Ember");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 8;
@@ -145,16 +140,16 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
 			//Apply 3-6 seconds of cursed inferno on impact
 			target.AddBuff(BuffID.CursedInferno, 60 * (3 + Main.rand.Next(4)));
-		}
+        }
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
 			//Apply 3-6 seconds of cursed inferno on impact
 			target.AddBuff(BuffID.CursedInferno, 60 * (3 + Main.rand.Next(4)));
-		}
+        }
 	}
 }

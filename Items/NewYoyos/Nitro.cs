@@ -21,9 +21,6 @@ namespace TysYoyoRedux.Items.NewYoyos
 
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nitro");
-			Tooltip.SetDefault("Leaves a blazing trail\n.");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			ItemID.Sets.Yoyo[Item.type] = true;

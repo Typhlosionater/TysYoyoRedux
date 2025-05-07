@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mini Servant");
-
 			Main.projFrames[Projectile.type] = 4;
 
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;

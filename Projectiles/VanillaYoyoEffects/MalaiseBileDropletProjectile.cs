@@ -12,11 +12,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 {
 	public class MalaiseBileDropletProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Bile Droplet");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 8;

@@ -21,9 +21,6 @@ namespace TysYoyoRedux.Items.NewYoyos
 
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cabal");
-			Tooltip.SetDefault("Striking enemies calls down a rain of ichor\n.");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			ItemID.Sets.Yoyo[Item.type] = true;

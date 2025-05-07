@@ -4,6 +4,8 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +16,8 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Holy Throw");
+			ProjectileID.Sets.TrailCacheLength[Type] = 15;
+			ProjectileID.Sets.TrailingMode[Type] = 5;
 
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 20f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 320f; //Range: 16 per Block
@@ -38,6 +41,8 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 
 			Projectile.extraUpdates = 0;
 			Projectile.scale = 1f;
+
+			Projectile.ArmorPenetration = 10;
 		}
 
 		public override void AI()
@@ -57,10 +62,30 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 		}
 
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		private static VertexStrip vertexStrip = new();
+
+		public override bool PreDraw(ref Color lightColor)
 		{
-			//Ignores 10 Armor
-			damage += target.checkArmorPenetration(10);
+			Color StripColors(float progressOnStrip)
+			{
+				float num = 1f - progressOnStrip;
+				Color result = new Color(48, 63, 150) * (num * num * num * num) * 0.5f;
+				result.A = 0;
+				return result;
+			}
+
+			float StripWidth(float progressOnStrip) => 6f;
+
+			MiscShaderData miscShaderData = GameShaders.Misc["LightDisc"];
+			miscShaderData.UseSaturation(-2.8f);
+			miscShaderData.UseOpacity(2f);
+			miscShaderData.Apply();
+			vertexStrip.PrepareStripWithProceduralPadding(Projectile.oldPos, Projectile.oldRot, StripColors, StripWidth, -Main.screenPosition + Projectile.Size / 2f);
+			vertexStrip.DrawTrail();
+
+			Main.pixelShader.CurrentTechnique.Passes[0].Apply();
+
+			return true;
 		}
 	}
 }

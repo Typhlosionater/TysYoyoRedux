@@ -14,9 +14,6 @@ namespace TysYoyoRedux.Items.Accessories
 
         public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Spiked Side Effects");
-			Tooltip.SetDefault("Consecutive yoyo hits builds up combo\nCombo increases damage dealt by yoyos by up to 20%");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 		

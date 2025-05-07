@@ -15,9 +15,6 @@ namespace TysYoyoRedux.Items.Accessories
 
         public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Master Yoyo Kit");
-			Tooltip.SetDefault("Increases your yoyo skills beyond comprehension\n'The last of your kind, a true yoyo master...'");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 		

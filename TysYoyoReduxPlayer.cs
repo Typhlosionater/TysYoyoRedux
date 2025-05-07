@@ -45,13 +45,13 @@ namespace TysYoyoRedux
 		}
 
         //Yoyo Side Effects Combo Effect
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
 			if (YoyoSideEffects && proj.aiStyle == 99)
 			{
 				//Adds damage
 				float ComboDamageMultiplier = ComboCount > 19 ? 0.2f : (ComboCount / 100f);
-				damage = (int)(damage * (1 + ComboDamageMultiplier));
+				modifiers.FinalDamage *= ComboDamageMultiplier;
 
 				//Increases Combo Counter
 				ComboCount++;
@@ -70,6 +70,6 @@ namespace TysYoyoRedux
 				Main.combatText[ct].scale *= 1.25f;
 				Main.combatText[ct].lifeTime = 30;
 			}
-		}
+        }
     }
 }

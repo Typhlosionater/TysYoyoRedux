@@ -12,11 +12,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 {
 	public class HelFireFlameTorrentProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Flame Torrent");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 8;
@@ -57,13 +52,13 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//inflict 3-8 seconds of on fire! on impact
 			target.AddBuff(BuffID.OnFire3, 60 * (3 + Main.rand.Next(6)));
 		}
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//inflict 3-8 seconds of on fire! on impact
 			target.AddBuff(BuffID.OnFire3, 60 * (3 + Main.rand.Next(6)));

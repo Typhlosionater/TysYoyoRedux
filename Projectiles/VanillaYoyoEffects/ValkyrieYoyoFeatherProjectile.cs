@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Valkyrie Feather");
-
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 

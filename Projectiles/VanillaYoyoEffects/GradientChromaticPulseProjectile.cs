@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chromatic Pulse");
-
 			Main.projFrames[Projectile.type] = 8;
 		}
 

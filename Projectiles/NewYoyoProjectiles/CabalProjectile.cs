@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cabal");
-
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 16f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 275f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 17f; //Speed: See Below
@@ -56,7 +54,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 11, 0.2f);
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Apply 5-10 seconds of ichor on impact
 			target.AddBuff(BuffID.Ichor, 60 * (5 + Main.rand.Next(6)));
@@ -83,7 +81,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 		}
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Apply 5-10 seconds of ichor on impact
 			target.AddBuff(BuffID.Ichor, 60 * (5 + Main.rand.Next(6)));

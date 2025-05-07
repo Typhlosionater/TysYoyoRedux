@@ -12,11 +12,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 {
 	public class RallyAfterimageProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Rally Afterimage");
-		}
-
 		public override void SetDefaults()
 		{
 			Projectile.width = 14;

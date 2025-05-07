@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blood Clot");
-
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 

@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Extraterrestrial Taser");
-
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = -1f; //Lifetime: 1 per second
 			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 384f; //Range: 16 per Block
 			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 17f; //Speed: See Below
@@ -82,7 +80,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			);
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Electrosphere launcher electrosphere spawn
 			if (OnHitEffectCooldown == 0)
@@ -98,7 +96,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 						Main.projectile[num216].netUpdate = true;
 					}
 				}
-				int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, damage / 3, 0.2f, Projectile.owner);
+				int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, hit.Damage / 3, 0.2f, Projectile.owner);
 				Main.projectile[projfire].DamageType = DamageClass.Melee;
 				Main.projectile[projfire].timeLeft /= 2;
 
@@ -107,7 +105,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 		}
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Electrosphere launcher electrosphere spawn
 			if (OnHitEffectCooldown == 0)
@@ -123,7 +121,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 						Main.projectile[num216].netUpdate = true;
 					}
 				}
-				int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, damage / 3, 0.2f, Projectile.owner);
+				int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, info.Damage / 3, 0.2f, Projectile.owner);
 				Main.projectile[projfire].DamageType = DamageClass.Melee;
 				Main.projectile[projfire].timeLeft /= 2;
 

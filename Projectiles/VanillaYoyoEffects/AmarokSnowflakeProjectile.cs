@@ -14,8 +14,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Snowflake");
-
 			Main.projFrames[Projectile.type] = 4;
 		}
 
@@ -23,7 +21,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 		{
 			Projectile.width = 34;
 			Projectile.height = 34;
-			Projectile.friendly = true; 
+			Projectile.friendly = true;
             Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
@@ -69,7 +67,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Has a 2 in 3 chance to inflict 2-5 seconds of frostburn on impact
 			if (Main.rand.Next(3) <= 1)
@@ -78,7 +76,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			}
 		}
 
-		public override void OnHitPvp(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Has a 2 in 3 chance to inflict 2-5 seconds of frostburn on impact
 			if (Main.rand.Next(3) <= 1)
