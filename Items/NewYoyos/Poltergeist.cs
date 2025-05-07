@@ -1,10 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
 
 namespace TysYoyoRedux.Items.NewYoyos
 {

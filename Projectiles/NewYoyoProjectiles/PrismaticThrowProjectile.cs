@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +10,8 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 {
 	public class PrismaticThrowProjectile : ModProjectile
 	{
+		private ref float Timer => ref Projectile.ai[2];
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 6f; //Lifetime: 1 per second
@@ -27,15 +27,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.aiStyle = 99;
+			Projectile.aiStyle = ProjAIStyleID.Yoyo;
 			Projectile.friendly = true;
-			Projectile.hostile = false;
 
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.penetrate = -1;
-
-			Projectile.extraUpdates = 0;
-			Projectile.scale = 1f;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -71,17 +67,14 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			if (!ColourSelected)
 			{
 				ColourSelected = true;
-				Projectile.netUpdate = true;
-
 				LightingCurrentColour = Main.rand.Next(16);
 			}
 
 			//Changes lighting colour at set intervals
-			Projectile.frameCounter++;
-			if (Projectile.frameCounter >= 10)
+			Timer++;
+			if (Timer >= 10)
 			{
-				Projectile.frameCounter = 0;
-				Projectile.netUpdate = true;
+				Timer = 0;
 
 				LightingCurrentColour++;
 				if (LightingCurrentColour >= 16)
@@ -144,17 +137,13 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 
 			//On hit effect cooldown
-			if (OnHitEffectCooldown > 0)
-			{
-				OnHitEffectCooldown--;
-				Projectile.netUpdate = true;
-			}
+			OnHitEffectCooldown--;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Produces 0-2 Prismatic shard projectiles on impact, edited from crystal bullets
-			if (OnHitEffectCooldown == 0)
+			if (OnHitEffectCooldown <= 0)
 			{
 				int ProjectileAmount = Main.rand.Next(3);
 				for (int i = 0; i < ProjectileAmount; i++)
@@ -171,14 +160,13 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				}
 
 				OnHitEffectCooldown = 8;
-				Projectile.netUpdate = true;
 			}
 		}
 
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Produces 0-2 Prismatic shard projectiles on impact, edited from crystal bullets
-			if (OnHitEffectCooldown == 0)
+			if (OnHitEffectCooldown <= 0)
 			{
 				int ProjectileAmount = Main.rand.Next(3);
 				for (int i = 0; i < ProjectileAmount; i++)
@@ -195,7 +183,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				}
 
 				OnHitEffectCooldown = 8;
-				Projectile.netUpdate = true;
 			}
 		}
 	}

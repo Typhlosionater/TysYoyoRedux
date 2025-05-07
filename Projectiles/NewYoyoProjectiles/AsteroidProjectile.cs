@@ -1,17 +1,16 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TysYoyoRedux.Projectiles.NewYoyoEffects;
 
 
 namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 {
 	public class AsteroidProjectile : ModProjectile
 	{
+		private ref float Timer => ref Projectile.ai[2];
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 8f; //Lifetime: 1 per second
@@ -27,30 +26,24 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.aiStyle = 99;
+			Projectile.aiStyle = ProjAIStyleID.Yoyo;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
-
-			Projectile.extraUpdates = 0;
-			Projectile.scale = 1f;
 		}
 
         public override void AI()
         {
 			//Fires Fireballs at regular intervals
-			Projectile.frameCounter++;
-			if(Projectile.frameCounter >= 40)
-            {
-				Projectile.frameCounter = 0;
+			Timer++;
+			if (Timer >= 40 && Projectile.owner == Main.myPlayer)
+			{
+				Timer = 0;
 				Projectile.netUpdate = true;
 
 				Vector2 ProjectileVelocity = new Vector2(2, 2).RotatedByRandom(MathHelper.ToRadians(360));
-				int FiredProjectile = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ProjectileVelocity, ProjectileID.BallofFire, Projectile.damage / 2, Projectile.knockBack / 2, Projectile.owner);
-				Main.projectile[FiredProjectile].timeLeft = 90;
-				Main.projectile[FiredProjectile].DamageType = DamageClass.Melee;
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, ProjectileVelocity, ModContent.ProjectileType<AsteroidFireball>(), Projectile.damage / 2, Projectile.knockBack / 2, Projectile.owner);
 			}
         }
 

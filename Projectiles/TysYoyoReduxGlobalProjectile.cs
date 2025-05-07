@@ -1,15 +1,8 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System;
-using Terraria.DataStructures;
-using Terraria.Localization;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using System.Linq;
 using MonoMod.Cil;
 
 namespace TysYoyoRedux.Projectiles
@@ -389,7 +382,7 @@ namespace TysYoyoRedux.Projectiles
 				}
 
 				//Rally Afterimages
-				if (projectile.type == ProjectileID.Rally)
+				if (projectile.type == ProjectileID.Rally && projectile.owner == Main.myPlayer)
 				{
 					projectile.frameCounter++;
 					if (projectile.frameCounter >= 2)
@@ -405,7 +398,7 @@ namespace TysYoyoRedux.Projectiles
 				if (projectile.type == ProjectileID.CorruptYoyo)
 				{
 					projectile.frameCounter++;
-					if (projectile.frameCounter >= 10 + Main.rand.Next(16))
+					if (projectile.frameCounter >= 10 + Main.rand.Next(16) && projectile.owner == Main.myPlayer)
 					{
 						projectile.frameCounter = 0;
 						projectile.netUpdate = true;
@@ -418,7 +411,7 @@ namespace TysYoyoRedux.Projectiles
 				if (projectile.type == ProjectileID.JungleYoyo)
 				{
 					projectile.frameCounter++;
-					if (projectile.frameCounter >= 15 + Main.rand.Next(6))
+					if (projectile.frameCounter >= 15 + Main.rand.Next(6) && projectile.owner == Main.myPlayer)
 					{
 						projectile.frameCounter = 0;
 						projectile.netUpdate = true;
@@ -434,7 +427,7 @@ namespace TysYoyoRedux.Projectiles
 				//Code 1 Electrostatic Aura
 				if (projectile.type == ProjectileID.Code1)
 				{
-					if (!this.Code1ElectrostaticAuraActive)
+					if (!this.Code1ElectrostaticAuraActive && projectile.owner == Main.myPlayer)
 					{
 						Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<VanillaYoyoEffects.Code1ElectrostaticAuraProjectile>(), projectile.damage / 3, 0f, projectile.owner, 0f, projectile.whoAmI);
 						this.Code1ElectrostaticAuraActive = true;
@@ -444,7 +437,7 @@ namespace TysYoyoRedux.Projectiles
 				//Valor is orbited by 3 ghostly wisp projectiles
 				if (projectile.type == ProjectileID.Valor)
 				{
-					if (!this.ValorWispOrbitActive)
+					if (!this.ValorWispOrbitActive && projectile.owner == Main.myPlayer)
 					{
 						for (int d = 0; d < 3; d++)
 						{
@@ -457,7 +450,7 @@ namespace TysYoyoRedux.Projectiles
 				//Gradient is orbited by 5 chromatic pulse projectiles
 				if (projectile.type == ProjectileID.Gradient)
 				{
-					if (!this.GradientPulseOrbitActive)
+					if (!this.GradientPulseOrbitActive && projectile.owner == Main.myPlayer)
 					{
 						for (int d = 0; d < 5; d++)
 						{
@@ -470,7 +463,7 @@ namespace TysYoyoRedux.Projectiles
 				//Chik rapidly & randomly produces crystal shards
 				if (projectile.type == ProjectileID.Chik)
 				{
-					if (Main.rand.Next(8) == 0)
+					if (Main.rand.Next(8) == 0 && projectile.owner == Main.myPlayer)
                     {
 						float ShardXVelocity = (0f - projectile.velocity.X) * (float)Main.rand.Next(40, 70) * 0.01f + (float)Main.rand.Next(-20, 21) * 0.4f;
 						float ShardYVelocity = (0f - projectile.velocity.Y) * (float)Main.rand.Next(40, 70) * 0.01f + (float)Main.rand.Next(-20, 21) * 0.4f;
@@ -483,7 +476,7 @@ namespace TysYoyoRedux.Projectiles
 				if (projectile.type == ProjectileID.Amarok)
 				{
 					projectile.frameCounter++;
-					if (projectile.frameCounter >= 30)
+					if (projectile.frameCounter >= 30 && projectile.owner == Main.myPlayer)
 					{
 						projectile.frameCounter = 0;
 						projectile.netUpdate = true;
@@ -496,7 +489,7 @@ namespace TysYoyoRedux.Projectiles
 				//Code 2 Plasmatic Aura
 				if (projectile.type == ProjectileID.Code2)
 				{
-					if (!this.Code2PlasmaticAuraActive)
+					if (!this.Code2PlasmaticAuraActive && projectile.owner == Main.myPlayer)
 					{
 						Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<VanillaYoyoEffects.Code2PlasmaticAuraProjectile>(), projectile.damage / 2, 0f, projectile.owner, 0f, projectile.whoAmI);
 						this.Code2PlasmaticAuraActive = true;
@@ -507,7 +500,7 @@ namespace TysYoyoRedux.Projectiles
 				if (projectile.type == ProjectileID.Yelets)
 				{
 					projectile.frameCounter++;
-					if (projectile.frameCounter >= 10 + Main.rand.Next(11))
+					if (projectile.frameCounter >= 10 + Main.rand.Next(11) && projectile.owner == Main.myPlayer)
 					{
 						projectile.frameCounter = 0;
 						projectile.netUpdate = true;
@@ -541,7 +534,7 @@ namespace TysYoyoRedux.Projectiles
 
 						projectile.frameCounter = 45;
 					}
-					if (((projectile.frameCounter == 45) || (projectile.frameCounter == 60) || (projectile.frameCounter == 75)) && (ValkyrieTargetedEnemy != new Vector2(0, 0)))
+					if (((projectile.frameCounter == 45) || (projectile.frameCounter == 60) || (projectile.frameCounter == 75)) && (ValkyrieTargetedEnemy != new Vector2(0, 0)) && projectile.owner == Main.myPlayer)
 					{
 						//Actually Fire
 						Vector2 ProjectileVelocity = ValkyrieTargetedEnemy - projectile.Center;
@@ -570,7 +563,7 @@ namespace TysYoyoRedux.Projectiles
                     {
 						EoCEnragedTimer--;
 
-						if (projectile.frameCounter >= 20 + Main.rand.Next(11))
+						if (projectile.frameCounter >= 20 + Main.rand.Next(11) && projectile.owner == Main.myPlayer)
 						{
 							projectile.frameCounter = 0;
 							projectile.netUpdate = true;
@@ -582,7 +575,7 @@ namespace TysYoyoRedux.Projectiles
 					}
                     else
                     {
-						if (projectile.frameCounter >= 35 + Main.rand.Next(11))
+						if (projectile.frameCounter >= 35 + Main.rand.Next(11) && projectile.owner == Main.myPlayer)
 						{
 							projectile.frameCounter = 0;
 							projectile.netUpdate = true;
@@ -604,12 +597,18 @@ namespace TysYoyoRedux.Projectiles
 			oldYoyoLifeTimeMult = ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type];
 
 			Player owner = Main.player[projectile.owner];
-			if (owner.GetModPlayer<TysYoyoReduxPlayer>().YoyoBearings)
+			if (owner.GetModPlayer<TysYoyoReduxPlayer>().YoyoBearings && oldYoyoLifeTimeMult != -1)
 			{
 				ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = oldYoyoLifeTimeMult * 1.5f;
 			}
 
-			return base.PreAI(projectile);
+			//make counterweights count up so they can die
+            if (projectile.type >= 556 && projectile.type <= 561 && ModContent.GetInstance<TysYoyoReduxConfigServer>().BuffsToCounterweights == true)
+            {
+				projectile.frameCounter++;
+            }
+
+            return base.PreAI(projectile);
 		}
 
 		public override void PostAI(Projectile projectile)
@@ -623,7 +622,7 @@ namespace TysYoyoRedux.Projectiles
 			//Format:C double critical strike damage effect
 			if (projectile.type == ProjectileID.FormatC && ModContent.GetInstance<TysYoyoReduxConfigServer>().VanillaYoyoEffects == true)
 			{
-				modifiers.CritDamage += 1f;
+				modifiers.CritDamage *= 2f;
 			}
 		}
 
@@ -639,14 +638,9 @@ namespace TysYoyoRedux.Projectiles
         }
 
 		//AI overrides
-		/*
-		 * TODO: move to IL edits
-		 * for AI_0, Projectile.cs,L48594,
-		 *	if (Main.player[owner].channel) should become
-		 *  if (Main.player[owner].channel && frameCounter < (int)(60 * 2 * Main.rand.NextFloat(4f, 6f)))
-		 */
         public override void Load()
         {
+	        // Make counterweights swap out every few seconds
 	        IL_Projectile.AI_099_1 += il =>
 	        {
 		        var cursor = new ILCursor(il);

@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TysYoyoRedux.Projectiles.NewYoyoEffects;
 
 
 namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
@@ -27,15 +26,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.aiStyle = 99;
+			Projectile.aiStyle = ProjAIStyleID.Yoyo;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
-
-			Projectile.extraUpdates = 0;
-			Projectile.scale = 1f;
 		}
 
 		int OnHitEffectCooldown = 0;
@@ -52,11 +47,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			Lighting.AddLight(Projectile.Center, 0.1f, 0.2f, 0.225f);
 
 			//On hit effect cooldown
-			if (OnHitEffectCooldown > 0)
-			{
-				OnHitEffectCooldown--;
-				Projectile.netUpdate = true;
-			}
+			OnHitEffectCooldown--;
 		}
 
 		public override void PostDraw(Color lightColor)
@@ -83,38 +74,37 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Electrosphere launcher electrosphere spawn
-			if (OnHitEffectCooldown == 0)
+			if (OnHitEffectCooldown <= 0)
 			{
-				SoundEngine.PlaySound(SoundID.Item93, Projectile.position);
+				SoundEngine.PlaySound(SoundID.Item93 with { Volume = 0.3f }, Projectile.position);
 				Rectangle value4 = new Rectangle((int)Projectile.Center.X - 40, (int)Projectile.Center.Y - 40, 80, 80);
 				for (int num216 = 0; num216 < 1000; num216++)
 				{
-					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == 443 && Main.projectile[num216].getRect().Intersects(value4))
+					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == ProjectileID.Electrosphere && Main.projectile[num216].getRect().Intersects(value4))
 					{
 						Main.projectile[num216].ai[1] = 1f;
 						Main.projectile[num216].velocity = (Projectile.Center - Main.projectile[num216].Center) / 5f;
 						Main.projectile[num216].netUpdate = true;
 					}
 				}
-				int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, hit.Damage / 3, 0.2f, Projectile.owner);
-				Main.projectile[projfire].DamageType = DamageClass.Melee;
-				Main.projectile[projfire].timeLeft /= 2;
+                int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, hit.Damage / 3, 0.2f, Projectile.owner);
+                Main.projectile[projfire].DamageType = DamageClass.Melee;
+                Main.projectile[projfire].timeLeft /= 2;
 
-				OnHitEffectCooldown = 8;
-				Projectile.netUpdate = true;
+                OnHitEffectCooldown = 8;
 			}
 		}
 
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Electrosphere launcher electrosphere spawn
-			if (OnHitEffectCooldown == 0)
+			if (OnHitEffectCooldown <= 0)
 			{
-				SoundEngine.PlaySound(SoundID.Item93, Projectile.position);
+				SoundEngine.PlaySound(SoundID.Item93 with { Volume = 0.3f }, Projectile.position);
 				Rectangle value4 = new Rectangle((int)Projectile.Center.X - 40, (int)Projectile.Center.Y - 40, 80, 80);
 				for (int num216 = 0; num216 < 1000; num216++)
 				{
-					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == 443 && Main.projectile[num216].getRect().Intersects(value4))
+					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == ProjectileID.Electrosphere && Main.projectile[num216].getRect().Intersects(value4))
 					{
 						Main.projectile[num216].ai[1] = 1f;
 						Main.projectile[num216].velocity = (Projectile.Center - Main.projectile[num216].Center) / 5f;
@@ -126,7 +116,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				Main.projectile[projfire].timeLeft /= 2;
 
 				OnHitEffectCooldown = 8;
-				Projectile.netUpdate = true;
 			}
 		}
 	}

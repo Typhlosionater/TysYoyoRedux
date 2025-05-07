@@ -1,12 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.DataStructures;
 
 namespace TysYoyoRedux
 {
@@ -51,7 +45,7 @@ namespace TysYoyoRedux
 			{
 				//Adds damage
 				float ComboDamageMultiplier = ComboCount > 19 ? 0.2f : (ComboCount / 100f);
-				modifiers.FinalDamage *= ComboDamageMultiplier;
+				modifiers.FinalDamage *= 1 + ComboDamageMultiplier;
 
 				//Increases Combo Counter
 				ComboCount++;
