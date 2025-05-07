@@ -1,16 +1,7 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
-using Terraria.DataStructures;
-using Terraria.Localization;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
-using Terraria.Audio;
-using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 
 namespace TysYoyoRedux.Items

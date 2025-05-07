@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,12 +21,9 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			Projectile.width = 16;
 			Projectile.height = 16;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = 1;
 			Projectile.timeLeft = 600;
-			Projectile.alpha = 255;
 
 			Projectile.extraUpdates = 3;
 		}
@@ -180,7 +174,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			//Produces blood on death
 			for (int d = 0; d < 6; d++)

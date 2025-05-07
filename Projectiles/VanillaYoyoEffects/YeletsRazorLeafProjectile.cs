@@ -1,9 +1,5 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,12 +18,9 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			Projectile.width = 14;
 			Projectile.height = 14;
 			Projectile.friendly = true;
-			Projectile.hostile = false;
 
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.penetrate = 1;
 			Projectile.timeLeft = 30;
-			Projectile.alpha = 255;
 		}
 
         public override void AI()
@@ -83,7 +76,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			target.AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 8));
         }
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int num349 = 0; num349 < 5; num349++)
 			{

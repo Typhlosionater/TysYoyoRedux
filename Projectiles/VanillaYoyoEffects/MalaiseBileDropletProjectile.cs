@@ -1,10 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 
@@ -17,14 +10,12 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			Projectile.width = 8;
 			Projectile.height = 8;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = 1;
 			Projectile.timeLeft = 40;
 
 			Projectile.ignoreWater = true;
-			Projectile.tileCollide = true;
 			Projectile.scale = 0.75f;
 		}
 

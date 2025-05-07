@@ -1,10 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 
@@ -22,18 +19,14 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			Projectile.width = 80;
 			Projectile.height = 80;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
-			Projectile.alpha = 255;
 
 			Projectile.usesIDStaticNPCImmunity = true;
 			Projectile.idStaticNPCHitCooldown = 20;
 
-			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
-			Projectile.scale = 1f;
 		}
 
 		public override void AI()
@@ -57,7 +50,6 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			if (Projectile.frameCounter >= 6)
             {
 				Projectile.frameCounter = 0;
-				Projectile.netUpdate = true;
 
 				Projectile.frame++;
 				if (Projectile.frame >= 4)

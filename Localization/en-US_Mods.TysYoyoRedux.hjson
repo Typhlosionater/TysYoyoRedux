@@ -126,6 +126,7 @@ Projectiles: {
 	ValkyrieYoyoFeatherProjectile.DisplayName: Valkyrie Feather
 	ValorGhostlyWispProjectile.DisplayName: Ghostly Wisp
 	YeletsRazorLeafProjectile.DisplayName: Razor Leaf
+	AsteroidFireball.DisplayName: Asteroid Fireball
 }
 
 Configs: {

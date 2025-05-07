@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,6 +9,12 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 {
 	public class SpectrumProjectile : ModProjectile
 	{
+		private int Timer
+		{
+			get => (int)Projectile.ai[2];
+			set => Projectile.ai[2] = value;
+		}
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = -1f; //Lifetime: 1 per second
@@ -27,15 +30,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.aiStyle = 99;
+			Projectile.aiStyle = ProjAIStyleID.Yoyo;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
-
-			Projectile.extraUpdates = 0;
-			Projectile.scale = 1f;
 		}
 
 		public override void AI()
@@ -47,11 +46,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			}
 
 			//Sundance Effect
-			Projectile.frameCounter++;
+			Timer++;
 
-			if (Projectile.frameCounter % 90 == 5)
+			if (Timer % 90 == 5 && Projectile.owner == Main.myPlayer)
 			{
-				int num25 = Projectile.frameCounter / 90;
+				int num25 = Timer / 90;
 				float num27 = 5f;
 				float num28 = 1f / num27;
 				for (float num29 = 0; num29 < 1f; num29 += num28)

@@ -1,9 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,15 +23,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.aiStyle = 99;
+			Projectile.aiStyle = ProjAIStyleID.Yoyo;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
-
-			Projectile.extraUpdates = 0;
-			Projectile.scale = 1f;
 		}
 
 		int EmberNumber = 1;
@@ -43,7 +35,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		public override void AI()
 		{
 			//Produce ember trail when moving
-			if(Projectile.velocity.Length() > 0.1)
+			if(Projectile.velocity.Length() > 0.1 && Projectile.owner == Main.myPlayer)
             {
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<NewYoyoEffects.NitroCursedEmberProjectile>(), Projectile.damage / 2, 0, Projectile.owner, EmberNumber, Projectile.whoAmI);
 			}
@@ -53,7 +45,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			if (EmberNumber > 240)
             {
 				EmberNumber = 1;
-				Projectile.netUpdate = true;
 			}
 
 			//Produce Light

@@ -2,10 +2,7 @@
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TysYoyoRedux.Items;
-using TysYoyoRedux.NPCs;
 using System.Linq;
-using System.Collections.Generic;
 using TysYoyoRedux.Items.Accessories;
 
 namespace TysYoyoRedux.NPCs

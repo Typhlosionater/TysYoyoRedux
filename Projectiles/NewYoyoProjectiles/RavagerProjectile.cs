@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,15 +28,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.aiStyle = 99;
+			Projectile.aiStyle = ProjAIStyleID.Yoyo;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
-
-			Projectile.extraUpdates = 0;
-			Projectile.scale = 1f;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -59,17 +53,13 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		public override void AI()
 		{
 			//On hit effect cooldown
-			if (OnHitEffectCooldown > 0)
-			{
-				OnHitEffectCooldown--;
-				Projectile.netUpdate = true;
-			}
+			OnHitEffectCooldown--;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			//Produces 0-2 blood clot projectiles on impact
-			if (OnHitEffectCooldown == 0)
+			if (OnHitEffectCooldown <= 0)
 			{
 				int ProjectileAmount = Main.rand.Next(3);
 				int RandomRot = Main.rand.Next(0, 360);
@@ -86,14 +76,13 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				}
 
 				OnHitEffectCooldown = 18;
-				Projectile.netUpdate = true;
 			}
 		}
 
 		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			//Produces 0-2 blood clot projectiles on impact
-			if (OnHitEffectCooldown == 0)
+			if (OnHitEffectCooldown <= 0)
 			{
 				int ProjectileAmount = Main.rand.Next(3);
 				int RandomRot = Main.rand.Next(0, 360);
@@ -110,7 +99,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				}
 
 				OnHitEffectCooldown = 18;
-				Projectile.netUpdate = true;
 			}
 		}
 	}

@@ -1,9 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,16 +23,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
-			Projectile.aiStyle = 99;
+			Projectile.aiStyle = ProjAIStyleID.Yoyo;
 			Projectile.friendly = true; 
-            Projectile.hostile = false;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
-
-			Projectile.extraUpdates = 0;
-			Projectile.tileCollide = true;
-			Projectile.scale = 1f;
 		}
 
 		int OnHitEffectCooldown = 0;
@@ -44,11 +35,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 		public override void AI()
 		{
 			//On hit effect cooldown
-			if (OnHitEffectCooldown > 0)
-			{
-				OnHitEffectCooldown--;
-				Projectile.netUpdate = true;
-			}
+			OnHitEffectCooldown--;
 
 			//Produce Light
 			Lighting.AddLight((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), 11, 0.2f);
@@ -60,7 +47,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 			target.AddBuff(BuffID.Ichor, 60 * (5 + Main.rand.Next(6)));
 
 			//Calls 1-3 ichor drops from the sky on impact with enemies
-			if (OnHitEffectCooldown == 0)
+			if (OnHitEffectCooldown <= 0)
 			{
 				int ProjectileAmount = Main.rand.Next(1, 4);
 				for (int num41 = 0; num41 < ProjectileAmount; num41++)
@@ -73,11 +60,9 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 					ProjectileVelocity *= Main.rand.NextFloat(0.6f, 1f);
 
 					Projectile.NewProjectile(Projectile.GetSource_FromThis(), SpawnLocation, ProjectileVelocity, ModContent.ProjectileType<NewYoyoEffects.CabalIchorRainProjectile>(), Projectile.damage / 3, 0.5f, Projectile.owner, 0, Projectile.Center.Y);
-
 				}
 
 				OnHitEffectCooldown = 13;
-				Projectile.netUpdate = true;
 			}
 		}
 
@@ -104,7 +89,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				}
 
 				OnHitEffectCooldown = 13;
-				Projectile.netUpdate = true;
 			}
 		}
 
