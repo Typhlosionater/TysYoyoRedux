@@ -36,13 +36,14 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 				//Grenade explosion effect
-				for (int num912 = 0; num912 < 20; num912++)
+				for (int num912 = 0; num912 < 10; num912++)
 				{
 					int num913 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default(Color), 1.5f);
 					Dust dust = Main.dust[num913];
 					dust.velocity *= 1.4f;
 				}
-				for (int num914 = 0; num914 < 10; num914++)
+
+				for (int num914 = 0; num914 < 5; num914++)
 				{
 					int num915 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0f, 0f, 100, default(Color), 2.5f);
 					Main.dust[num915].noGravity = true;
@@ -52,8 +53,8 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 					dust = Main.dust[num915];
 					dust.velocity *= 3f;
 				}
-				for (int i = 0; i < 2; i++)
-                {
+
+				if (Main.rand.NextBool()) {
 					int num916 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, default(Vector2), Main.rand.Next(61, 64));
 					Gore gore = Main.gore[num916];
 					gore.velocity *= 0.4f;

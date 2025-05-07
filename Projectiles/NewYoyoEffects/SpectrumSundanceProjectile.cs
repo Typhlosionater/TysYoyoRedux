@@ -47,12 +47,6 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
 
         public override void AI()
         {
-            // Play sound on first frame
-            /* Commented out cause it sounded jank
-            if (AI_FrameCounter == 0f)
-                SoundEngine.PlaySound(SoundID.Item159, Projectile.Center);
-            */ 
-
             // Increment frame counter
             AI_FrameCounter++;
             if (AI_FrameCounter > maxTimeLeft)
