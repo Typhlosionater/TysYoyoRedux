@@ -4,4 +4,7 @@
     <AssemblyName>TysYoyoRedux</AssemblyName>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Projectiles\NewYoyoEffects\ExtraterrestrialTaserElectrosphere.cs" />
+  </ItemGroup>
 </Project>

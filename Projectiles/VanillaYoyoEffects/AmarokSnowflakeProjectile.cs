@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +17,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
 			Projectile.timeLeft = 80;
+			Projectile.alpha = 255;
 
 			Projectile.tileCollide = false;
 		}
@@ -67,5 +69,10 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 				target.AddBuff(BuffID.Frostburn2, 60 * (2 + Main.rand.Next(4)));
 			}
 		}
-	}
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return new Color(255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha, 255 - Projectile.alpha);
+        }
+    }
 }

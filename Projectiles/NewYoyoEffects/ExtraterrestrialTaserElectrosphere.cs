@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -5,6 +6,11 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects;
 
 public class ExtraterrestrialTaserElectrosphere : ModProjectile
 {
+    public override void SetStaticDefaults()
+    {
+        Main.projFrames[Projectile.type] = 4;
+    }
+
     public override string Texture
     {
         get => $"Terraria/Images/Projectile_{ProjectileID.Electrosphere}";

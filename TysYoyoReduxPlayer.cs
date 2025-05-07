@@ -45,7 +45,7 @@ namespace TysYoyoRedux
 			{
 				//Adds damage
 				float ComboDamageMultiplier = ComboCount > 19 ? 0.2f : (ComboCount / 100f);
-				modifiers.FinalDamage *= ComboDamageMultiplier;
+				modifiers.FinalDamage *= 1 + ComboDamageMultiplier;
 
 				//Increases Combo Counter
 				ComboCount++;

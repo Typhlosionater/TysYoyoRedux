@@ -80,16 +80,18 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				Rectangle value4 = new Rectangle((int)Projectile.Center.X - 40, (int)Projectile.Center.Y - 40, 80, 80);
 				for (int num216 = 0; num216 < 1000; num216++)
 				{
-					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == 443 && Main.projectile[num216].getRect().Intersects(value4))
+					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == ProjectileID.Electrosphere && Main.projectile[num216].getRect().Intersects(value4))
 					{
 						Main.projectile[num216].ai[1] = 1f;
 						Main.projectile[num216].velocity = (Projectile.Center - Main.projectile[num216].Center) / 5f;
 						Main.projectile[num216].netUpdate = true;
 					}
 				}
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<ExtraterrestrialTaserElectrosphere>(), hit.Damage / 3, 0.2f, Projectile.owner);
+                int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, hit.Damage / 3, 0.2f, Projectile.owner);
+                Main.projectile[projfire].DamageType = DamageClass.Melee;
+                Main.projectile[projfire].timeLeft /= 2;
 
-				OnHitEffectCooldown = 8;
+                OnHitEffectCooldown = 8;
 			}
 		}
 
@@ -102,14 +104,14 @@ namespace TysYoyoRedux.Projectiles.NewYoyoProjectiles
 				Rectangle value4 = new Rectangle((int)Projectile.Center.X - 40, (int)Projectile.Center.Y - 40, 80, 80);
 				for (int num216 = 0; num216 < 1000; num216++)
 				{
-					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == 443 && Main.projectile[num216].getRect().Intersects(value4))
+					if (num216 != Projectile.whoAmI && Main.projectile[num216].active && Main.projectile[num216].owner == Projectile.owner && Main.projectile[num216].type == ProjectileID.Electrosphere && Main.projectile[num216].getRect().Intersects(value4))
 					{
 						Main.projectile[num216].ai[1] = 1f;
 						Main.projectile[num216].velocity = (Projectile.Center - Main.projectile[num216].Center) / 5f;
 						Main.projectile[num216].netUpdate = true;
 					}
 				}
-				int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<ExtraterrestrialTaserElectrosphere>(), info.Damage / 3, 0.2f, Projectile.owner);
+				int projfire = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.Electrosphere, info.Damage / 3, 0.2f, Projectile.owner);
 				Main.projectile[projfire].DamageType = DamageClass.Melee;
 				Main.projectile[projfire].timeLeft /= 2;
 

@@ -597,12 +597,18 @@ namespace TysYoyoRedux.Projectiles
 			oldYoyoLifeTimeMult = ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type];
 
 			Player owner = Main.player[projectile.owner];
-			if (owner.GetModPlayer<TysYoyoReduxPlayer>().YoyoBearings)
+			if (owner.GetModPlayer<TysYoyoReduxPlayer>().YoyoBearings && oldYoyoLifeTimeMult != -1)
 			{
 				ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = oldYoyoLifeTimeMult * 1.5f;
 			}
 
-			return base.PreAI(projectile);
+			//make counterweights count up so they can die
+            if (projectile.type >= 556 && projectile.type <= 561 && ModContent.GetInstance<TysYoyoReduxConfigServer>().BuffsToCounterweights == true)
+            {
+				projectile.frameCounter++;
+            }
+
+            return base.PreAI(projectile);
 		}
 
 		public override void PostAI(Projectile projectile)
