@@ -1,5 +1,9 @@
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Graphics;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 
@@ -7,6 +11,12 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 {
 	public class KrakenAbyssalTentacleProjectile : ModProjectile
 	{
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.TrailingMode[Type] = 5;
+			ProjectileID.Sets.TrailCacheLength[Type] = 20;
+		}
+
 		public override void SetDefaults()
 		{
 			Projectile.width = 40;
@@ -66,7 +76,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 			Projectile.ai[1] *= 1.05f;
 			if (Projectile.scale < 1f)
 			{
-				for (int num1096 = 0; (float)num1096 < Projectile.scale * 10f; num1096++)
+				for (int num1096 = 0; (float)num1096 < Projectile.scale * 3f; num1096++)
 				{
 					int num1098 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 160, Projectile.velocity.X, Projectile.velocity.Y, 100, Color.White, 1.2f);
 					Main.dust[num1098].position = (Main.dust[num1098].position + Projectile.Center) / 2f;
@@ -83,6 +93,30 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
 					dust189.scale += Projectile.scale * 0.75f;
 				}
 			}
+		}
+
+		private static VertexStrip vertexStrip = new();
+
+		public override bool PreDraw(ref Color lightColor)
+		{
+			Color StripColors(float progressOnStrip)
+			{
+				return Color.Turquoise;
+			}
+
+			float StripWidth(float progressOnStrip) => float.Max(2f, progressOnStrip * 10f);
+
+			MiscShaderData miscShaderData = GameShaders.Misc["LightDisc"];
+			miscShaderData.UseSaturation(-2.8f);
+			miscShaderData.UseOpacity(2f);
+			miscShaderData.Apply();
+			var positions = Projectile.oldPos.Select(x => x + (Projectile.Size / 2f));
+			vertexStrip.PrepareStripWithProceduralPadding(Projectile.oldPos, Projectile.oldRot, StripColors, StripWidth, -Main.screenPosition + Projectile.Size / 2f);
+			vertexStrip.DrawTrail();
+
+			Main.pixelShader.CurrentTechnique.Passes[0].Apply();
+
+			return false;
 		}
 	}
 }
