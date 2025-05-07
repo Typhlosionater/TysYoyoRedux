@@ -25,7 +25,7 @@ namespace TysYoyoRedux.NPCs
         }
 
         // NOTE: When Terraria updates, these need to be updated accordingly
-        private readonly int[] veryRareItemIds =
+        private static readonly int[] veryRareItemIds =
         [
             ItemID.BambooLeaf,
             ItemID.BedazzledNectar,

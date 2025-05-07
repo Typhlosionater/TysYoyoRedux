@@ -3,7 +3,7 @@ Items: {
 		DisplayName: Yoyo Modification Kit
 		Tooltip:
 			'''
-			Consecutive yoyo hits builds up combo
+			Consecutive yoyo hits build up combo
 			Combo increases damage dealt by yoyos by up to 20%
 			Increases yoyo lifetime by 50%
 			'''
@@ -25,7 +25,11 @@ Items: {
 
 	YoyoSideEffectsAccessory: {
 		DisplayName: Spiked Side Effects
-		Tooltip: Consecutive yoyo hits builds up combo\nCombo increases damage dealt by yoyos by up to 20%
+		Tooltip:
+			'''
+			Consecutive yoyo hits build up combo
+			Combo increases damage dealt by yoyos by up to 20%
+			'''
 	}
 
 	Asteroid: {
@@ -40,7 +44,11 @@ Items: {
 
 	Cabal: {
 		DisplayName: Cabal
-		Tooltip: Striking enemies calls down a rain of ichor
+		Tooltip:
+			'''
+			Striking enemies calls down a rain of ichor
+			.
+			'''
 	}
 
 	EnchantedYoyo: {
@@ -60,7 +68,11 @@ Items: {
 
 	Nitro: {
 		DisplayName: Nitro
-		Tooltip: Leaves a blazing trail
+		Tooltip:
+			'''
+			Leaves a blazing trail
+			.
+			'''
 	}
 
 	Poltergeist: {
@@ -119,7 +131,7 @@ Projectiles: {
 Configs: {
 	TysYoyoReduxConfigServer: {
 		BuffsToCounterweights: {
-			Tooltip: Speeds up counterweights along with giving them local immunity. In addtion counterweights will switch out after 4-6 seconds. (Enabled by default)
+			Tooltip: Speeds up counterweights, along with giving them local immunity. In addtion counterweights will switch out after 4-6 seconds. (Enabled by default)
 			Label: Changes to counterweights
 		}
 
@@ -145,4 +157,26 @@ Configs: {
 
 		DisplayName: Mod Config
 	}
+}
+
+VanillaItemTooltips: {
+	Rally: Leaves damaging afterimages
+	CorruptYoyo: Drips with festering bile
+	CrimsonYoyo: Has a chance to steal life from struck enemies
+	JungleYoyo: Shoots poisonous stingers
+	Code1: Generates an electrostatic aura
+	Valor: Conjures ghostly wisps
+	Cascade: Produces fiery explosions on impact
+	FormatC: Critical strikes deal double damage
+	Gradient: Channels chromatic energy
+	Chik: Rapidly produces crystal shards
+	HelFire: Fires devastating flame torrents on impact
+	Amarok: Leaves lingering snowflakes
+	Code2: Generates a supercharged electrostatic aura
+	Yelets: Rapidly fires venomous stingers
+	ValkyrieYoyo: Fires flurries of feathers at nearby enemies
+	RedsYoyo: Inflicts a random debuff on impact
+	Kraken: Lashes out with tentacles on impact
+	TheEyeOfCthulhu: Produces mini, seeking Servants of Cthulhu
+	Terrarian: Radiates with the soul of Terraria
 }
