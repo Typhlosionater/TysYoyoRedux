@@ -15,6 +15,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
 			Projectile.friendly = true;
 
 			Projectile.DamageType = DamageClass.Melee;
+			Projectile.alpha = 255;
 
 			Projectile.ignoreWater = true;
 			Projectile.extraUpdates = 2;

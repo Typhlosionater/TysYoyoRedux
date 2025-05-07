@@ -616,7 +616,7 @@ namespace TysYoyoRedux.Projectiles
 			//Format:C double critical strike damage effect
 			if (projectile.type == ProjectileID.FormatC && ModContent.GetInstance<TysYoyoReduxConfigServer>().VanillaYoyoEffects == true)
 			{
-				modifiers.CritDamage += 1f;
+				modifiers.CritDamage *= 2f;
 			}
 		}
 

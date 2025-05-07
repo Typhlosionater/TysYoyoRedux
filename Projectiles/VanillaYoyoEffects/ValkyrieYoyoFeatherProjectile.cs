@@ -22,6 +22,7 @@ namespace TysYoyoRedux.Projectiles.VanillaYoyoEffects
             Projectile.DamageType = DamageClass.Melee;
 			Projectile.timeLeft = 300;
 			Projectile.alpha = 250;
+			Projectile.extraUpdates = 1;
 
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = true;

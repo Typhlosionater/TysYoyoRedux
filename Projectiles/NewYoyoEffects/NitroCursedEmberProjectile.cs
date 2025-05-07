@@ -17,6 +17,7 @@ namespace TysYoyoRedux.Projectiles.NewYoyoEffects
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
 			Projectile.timeLeft = 60;
+            Projectile.alpha = 255;
 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
