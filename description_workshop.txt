@@ -1,4 +1,4 @@
-[h1]~ Ty's Yoyo Redux ~[h1]
+[h1]~ Ty's Yoyo Redux ~[/h1]
 
 Ty's Yoyo Redux is a small mod made to expand on the vanilla yoyo experience. It is a part vanilla tweaks, part small content mod made to improve using yoyos in various ways, this includes:
 [list]
