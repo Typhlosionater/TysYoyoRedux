@@ -1,0 +1,184 @@
+Items: {
+	CombinedYoyoAccessory: {
+		DisplayName: 悠悠球改装套件
+		 Tooltip:
+			'''
+			连续用悠悠球造成伤害触发连击
+			悠悠球的伤害随连击数增加，最高增加20%
+			悠悠球持续时间增加50%
+			''' 
+	}
+
+	MasterYoyoKit: {
+		DisplayName: 悠悠球大师套件
+		 Tooltip:
+			'''
+			将悠悠球技能提升到不可思议的高度
+			'你是最后一个，真正的悠悠大师...'
+			''' 
+	}
+
+	YoyoBearingAccessory: {
+		DisplayName: 滚珠轴承
+		Tooltip: 悠悠球持续时间增加50%
+	}
+
+	YoyoSideEffectsAccessory: {
+		DisplayName: 尖刺中轴
+		 Tooltip:
+			'''
+			连续用悠悠球造成伤害触发连击
+			悠悠球的伤害随连击数增加，最高增加20%
+			''' 
+	}
+
+	Asteroid: {
+		DisplayName: 小行星球
+		Tooltip: 发射短暂存在的反弹火球
+	}
+
+	Avian: {
+		DisplayName: 飞鸟球
+		Tooltip: 非常灵活
+	}
+
+	Cabal: {
+		DisplayName: 阴谋球
+		 Tooltip:
+			''' 
+			命中敌人召唤灵液雨
+			.
+			''' 
+	}
+
+	EnchantedYoyo: {
+		DisplayName: 附魔悠悠球
+		Tooltip: ""
+	}
+
+	ExtraterrestrialTaser: {
+		DisplayName: 外星电击球
+		Tooltip: 命中时释放电圈电击敌人
+	}
+
+	HolyThrow: {
+		DisplayName: 神圣抛球
+		Tooltip: 无视敌人10点防御
+	}
+
+	Nitro: {
+		DisplayName: 硝化球
+		 Tooltip:
+			'''
+			留下咒焰轨迹
+			.
+			''' 
+	}
+
+	Poltergeist: {
+		DisplayName: 闹鬼球
+		Tooltip: 可以自由穿透墙壁
+	}
+
+	PrismaticThrow: {
+		DisplayName: 棱镜抛球
+		Tooltip: 命中时飞溅出棱镜碎片
+	}
+
+	Ravager: {
+		DisplayName: 掠夺球
+		Tooltip: 命中时生成追踪凝血弹
+	}
+
+	Spectrum: {
+		DisplayName: 光谱球
+		Tooltip: 上演致命的灯光秀
+	}
+}
+
+Projectiles: {
+	CabalIchorRainProjectile.DisplayName: 灵液雨
+	NitroCursedEmberProjectile.DisplayName: 诅咒余烬
+	PrismaticThrowPrismaticShardProjectile.DisplayName: 棱镜碎片
+	RavagerBloodClotProjectile.DisplayName: 凝血
+	SpectrumSundanceProjectile.DisplayName: 绚光
+	AsteroidProjectile.DisplayName: 小行星
+	AvianProjectile.DisplayName: 飞鸟球
+	CabalProjectile.DisplayName: 阴谋球
+	EnchantedYoyoProjectile.DisplayName: 附魔悠悠球
+	ExtraterrestrialTaserProjectile.DisplayName: 外星电击球
+	HolyThrowProjectile.DisplayName: 神圣抛球
+	NitroProjectile.DisplayName: 硝化球
+	PoltergeistProjectile.DisplayName: 闹鬼球
+	PrismaticThrowProjectile.DisplayName: 棱镜抛球
+	RavagerProjectile.DisplayName: 掠夺球
+	SpectrumProjectile.DisplayName: 光谱球
+	AmarokSnowflakeProjectile.DisplayName: 雪花
+	CascadeFieryExplosionProjectile.DisplayName: 火焰爆炸
+	Code1ElectrostaticAuraProjectile.DisplayName: 静电场
+	Code2PlasmaticAuraProjectile.DisplayName: 等离子电场
+	EoCMiniServantProjectile.DisplayName: 克苏鲁之仆
+	GradientChromaticPulseProjectile.DisplayName: 渐变脉冲
+	HelFireFlameTorrentProjectile.DisplayName: 烈焰喷发
+	KrakenAbyssalTentacleProjectile.DisplayName: 深渊触手
+	MalaiseBileDropletProjectile.DisplayName: 胆汁
+	RallyAfterimageProjectile.DisplayName: 对打球残影
+	ValkyrieYoyoFeatherProjectile.DisplayName: 女武神羽毛
+	ValorGhostlyWispProjectile.DisplayName: 幽魂
+	YeletsRazorLeafProjectile.DisplayName: 剃刀叶
+	AsteroidFireball.DisplayName: 小行星火球
+	ExtraterrestrialTaserElectrosphere.DisplayName: 电圈
+}
+
+Configs: {
+	TysYoyoReduxConfigServer: {
+		BuffsToCounterweights: {
+			Tooltip: 平衡锤速度增加，使用局部无敌帧。平衡锤将在4-6秒后收回。(默认开启)
+			Label: 平衡锤修改
+		}
+
+		AddNewAccessories: {
+			Tooltip: 添加模组的悠悠球专属饰品。(默认开启)
+			Label: 添加模组悠悠球饰品
+		}
+
+		AddNewYoyos: {
+			Tooltip: 在流程中添加模组新增的悠悠球。(默认开启)
+			Label: 添加模组悠悠球
+		}
+
+		VanillaYoyoRecipes: {
+			Tooltip: 为Red的抛球和女武神悠悠球添加合成配方。(默认开启)
+			Label: 开发者悠悠球可合成
+		}
+
+		VanillaYoyoEffects: {
+			Tooltip: 为每个原版悠悠球添加特殊效果。(默认开启)
+			Label: 原版悠悠球修改
+		}
+
+		DisplayName: 模组配置
+	}
+}
+
+VanillaItemTooltips: {
+	Rally: 留下攻击敌人的残影
+	CorruptYoyo: 不断滴落腐烂胆汁
+	CrimsonYoyo: 击中敌人时有几率吸收生命值
+	JungleYoyo: 向周围发射毒刺
+	Code1: 生成伤害敌人的静电圈
+	Valor: 召唤环绕自身的幽魂
+	Cascade: 命中时造成爆炸
+	FormatC: 暴击造成双倍伤害
+	Gradient: 生成渐变能量环绕自身
+	Chik: 快速生成水晶碎片
+	HelFire: 命中时引发烈焰喷发
+	Amarok: 留下攻击敌人的雪花
+	Code2: 生成伤害敌人的高压电圈
+	Yelets: 快速发射剧毒叶片
+	ValkyrieYoyo: 向附近的敌人发射一波波的羽毛
+	RedsYoyo: 命中时造成随机减益
+	Kraken: 命中敌人时伸出触手鞭挞敌人
+	TheEyeOfCthulhu: 召唤追踪敌人的克苏鲁之仆
+	Terrarian: 释放泰拉之魂
+}
