@@ -29,3 +29,4 @@ v1.3 - Tmodloader new entity source changes
 v1.4 - Works in the full release tmod 1.4, balance changes, spectrum effect fixed, an accessory rework and minor tweaks
 v1.5 - Minor tweaks and fixes
 v1.6 - Updated for 1.4 (Removed The Hive, changes to shops, misc other changes)
+v1.6.1 - Add Calamity compat, add Chinese localization

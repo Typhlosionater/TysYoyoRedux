@@ -1,21 +1,21 @@
 Items: {
 	CombinedYoyoAccessory: {
 		DisplayName: 悠悠球改装套件
-		 Tooltip:
+		Tooltip:
 			'''
 			连续用悠悠球造成伤害触发连击
 			悠悠球的伤害随连击数增加，最高增加20%
 			悠悠球持续时间增加50%
-			''' 
+			'''
 	}
 
 	MasterYoyoKit: {
 		DisplayName: 悠悠球大师套件
-		 Tooltip:
+		Tooltip:
 			'''
 			将悠悠球技能提升到不可思议的高度
 			'你是最后一个，真正的悠悠大师...'
-			''' 
+			'''
 	}
 
 	YoyoBearingAccessory: {
@@ -25,11 +25,11 @@ Items: {
 
 	YoyoSideEffectsAccessory: {
 		DisplayName: 尖刺中轴
-		 Tooltip:
+		Tooltip:
 			'''
 			连续用悠悠球造成伤害触发连击
 			悠悠球的伤害随连击数增加，最高增加20%
-			''' 
+			'''
 	}
 
 	Asteroid: {
@@ -44,11 +44,11 @@ Items: {
 
 	Cabal: {
 		DisplayName: 阴谋球
-		 Tooltip:
-			''' 
+		Tooltip:
+			'''
 			命中敌人召唤灵液雨
 			.
-			''' 
+			'''
 	}
 
 	EnchantedYoyo: {
@@ -68,11 +68,11 @@ Items: {
 
 	Nitro: {
 		DisplayName: 硝化球
-		 Tooltip:
+		Tooltip:
 			'''
 			留下咒焰轨迹
 			.
-			''' 
+			'''
 	}
 
 	Poltergeist: {

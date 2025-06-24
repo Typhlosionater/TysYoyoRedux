@@ -25,7 +25,9 @@ Visit the [url=https://forums.terraria.org/index.php?threads/tys-yoyo-redux-a-yo
 [hr][/hr]
 
 [h2]Special Thanks[/h2]
+
 [url=https://steamcommunity.com/id/stormytuna/myworkshopfiles/?appid=1281930]stormytuna[/url] for Spectrum and 1.4.4 port
+shrinkviolet77 for Chinese localization
 
 [hr][/hr]
 
@@ -37,3 +39,4 @@ v1.3 - tModLoader new entity source changes
 v1.4 - Works in the full release tMod 1.4, balance changes, spectrum effect fixed, an accessory rework and minor tweaks
 v1.5 - Minor tweaks and fixes
 v1.6 - Updated for 1.4.4 (Removed The Hive, changes to shops, misc other changes)
+v1.6.1 - Add Calamity compat, add Chinese localization
